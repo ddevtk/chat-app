@@ -1,10 +1,8 @@
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
-  // TODO: Explain Source Map
+  entry: './src/js/index.js',
   devtool: 'inline-source-map',
   target: 'electron-renderer',
   module: {
@@ -15,22 +13,17 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  targets: {
-                    esmodules: true,
-                  },
-                },
-              ],
-              '@babel/preset-react',
-            ],
-          },
-        },
+            presets: [[
+              '@babel/preset-env', {
+                targets: {
+                  esmodules: true
+                }
+              }],
+              '@babel/preset-react']
+          }
+        }
       },
       {
-        // See more: https://webpack.js.org/loaders/sass-loader/
         test: [/\.s[ac]ss$/i, /\.css$/i],
         use: [
           // Creates `style` nodes from JS strings
@@ -40,10 +33,10 @@ module.exports = {
           // Compiles Sass to CSS
           'sass-loader',
         ],
-      },
-    ],
+      }
+    ]
   },
-  plugins: [new Dotenv()],
+  plugins: [],
   resolve: {
     extensions: ['.js'],
   },
