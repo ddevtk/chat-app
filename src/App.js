@@ -1,9 +1,13 @@
 import React from 'react';
+import { ipcRenderer } from 'electron';
 
 const App = () => {
+  const sendNotification = () => {
+    window.sayHello('Hello from App.js');
+  };
   return (
     <div>
-      <h1>Hello world</h1>
+      <button onClick={sendNotification}>Send notification</button>
     </div>
   );
 };
