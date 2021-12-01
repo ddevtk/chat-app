@@ -1,6 +1,6 @@
 import React from 'react';
-import AvailableChat from '../components/AvailableChats';
-import JoinedChat from '../components/JoinedChats';
+import AvailableChat from '../components/AvailableChatList';
+import JoinedChat from '../components/JoinedChatList';
 
 const Home = () => {
   return (

@@ -1,14 +1,10 @@
 import React from 'react';
+import ViewTitle from './ViewTitle';
 
 const AvailableChats = () => {
   return (
     <>
-      <div className='chat-name-container'>
-        <span className='name'>Choose your channel</span>
-        <a href='/' className='btn btn-primary btn-sm back-button'>
-          Back
-        </a>
-      </div>
+      <ViewTitle />
       <div className='container-fluid'>
         <div className='row mt-3'>
           {false && (

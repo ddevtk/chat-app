@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Setting from './views/Setting';
 import Register from './views/Register';
 import Login from './views/Login';
+import Chat from './views/Chat';
 
 const App = () => {
   const sendNotification = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/chat' element={<Chat />} />
           <Route path='/settings' element={<Setting />} />
           <Route path='/login' element={<Login />} />
         </Routes>
