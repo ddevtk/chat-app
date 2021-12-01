@@ -5,6 +5,7 @@ import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Setting from './views/Setting';
 import Register from './views/Register';
+import Login from './views/Login';
 
 const App = () => {
   const sendNotification = () => {
@@ -18,7 +19,7 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/register' element={<Register />} />
           <Route path='/settings' element={<Setting />} />
-          <Route path='/login' element={<h1>Login</h1>} />
+          <Route path='/login' element={<Login />} />
         </Routes>
       </div>
     </Router>

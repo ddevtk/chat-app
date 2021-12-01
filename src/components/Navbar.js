@@ -19,10 +19,16 @@ const Navbar = () => {
         </div>
         <div className='chat-navbar-inner-right'>
           <span className='logged-in-user'>Hi User</span>
-          <Link to='/register' className='btn btn-sm btn-outline-danger ml-2'>
+          <Link
+            to='/register'
+            className='btn btn-sm btn-outline-danger ml-2 d-flex align-items-center justify-content-center'
+          >
             Register
           </Link>
-          <Link to='/login' className='btn btn-sm btn-outline-success ml-2'>
+          <Link
+            to='/login'
+            className='btn btn-sm btn-outline-success ml-2 d-flex align-items-center justify-content-center'
+          >
             Login
           </Link>
         </div>
