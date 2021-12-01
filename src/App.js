@@ -14,8 +14,8 @@ const App = () => {
       <div className='content-wrapper'>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/settings' element={<h1>Settings</h1>} />
           <Route path='/register' element={<h1>Register</h1>} />
+          <Route path='/settings' element={<h1>Settings</h1>} />
           <Route path='/login' element={<h1>Login</h1>} />
         </Routes>
       </div>

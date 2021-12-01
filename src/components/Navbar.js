@@ -1,11 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <div className='chat-navbar'>
       <nav className='chat-navbar-inner'>
         <div className='chat-navbar-inner-left'>
+          <button
+            onClick={() => navigate(-1)}
+            className='btn btn-outline-primary'
+          >
+            Back
+          </button>
           <Link to='/settings' className='btn btn-outline-success ml-2'>
             Settings
           </Link>
