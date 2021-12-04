@@ -4,7 +4,7 @@ import ViewTitle from './ViewTitle';
 const AvailableChats = () => {
   return (
     <>
-      <ViewTitle />
+      <ViewTitle text={'Choose your channel'} />
       <div className='container-fluid'>
         <div className='row mt-3'>
           {false && (
