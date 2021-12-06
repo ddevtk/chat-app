@@ -7,11 +7,14 @@ import Setting from './views/Setting';
 import Register from './views/Register';
 import Login from './views/Login';
 import Chat from './views/Chat';
+import { useSelector } from 'react-redux';
 
 const App = () => {
-  const sendNotification = () => {
-    window.sayHello('Hello from App.js');
-  };
+  const data = useSelector((state) => {
+    return state.message;
+  });
+  debugger;
+  console.log(data);
   return (
     <Router>
       <Navbar />
