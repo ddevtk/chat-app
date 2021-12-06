@@ -7,17 +7,16 @@ import { fetchChats } from '../redux/actions/chatAction';
 const Home = () => {
   const dispatch = useDispatch();
   const chats = useSelector((state) => state.chats.items);
-  console.log(chats);
   useEffect(() => {
     dispatch(fetchChats());
   }, []);
   return (
     <div className='row no-gutters fh'>
       <div className='col-3 fh'>
-        <JoinedChat />
+        <JoinedChat chats={chats} />
       </div>
       <div className='col-9 fh'>
-        <AvailableChat />
+        <AvailableChat chats={chats} />
       </div>
     </div>
   );
