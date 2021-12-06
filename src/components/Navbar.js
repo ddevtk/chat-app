@@ -26,7 +26,7 @@ const Navbar = () => {
             Register
           </Link>
           <Link
-            to='/login'
+            to='/'
             className='btn btn-sm btn-outline-success ml-2 d-flex align-items-center justify-content-center'
           >
             Login
