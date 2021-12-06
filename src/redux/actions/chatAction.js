@@ -1,5 +1,5 @@
 import { chatActionType } from '../type/chatActionType';
-import * as api from '../../api/chats';
+import * as api from '../../api/chatsApi';
 
 export const fetchChats = () => async (dispatch) => {
   const chats = await api.fetchChats();
