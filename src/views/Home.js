@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
-import { fetchChats } from '../api/chats';
+import { useDispatch, useSelector } from 'react-redux';
 import AvailableChat from '../components/AvailableChatList';
 import JoinedChat from '../components/JoinedChatList';
+import { fetchChats } from '../redux/actions/chatAction';
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const chats = useSelector((state) => state.chats.items);
+  console.log(chats);
   useEffect(() => {
-    fetchChats().then((chats) => {
-      console.log(chats);
-    });
+    dispatch(fetchChats());
   }, []);
   return (
     <div className='row no-gutters fh'>
