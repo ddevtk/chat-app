@@ -1,8 +1,18 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
 
 const RegisterForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
   return (
-    <form onSubmit={() => {}} className='centered-container-form'>
+    <form onSubmit={handleSubmit(onSubmit)} className='centered-container-form'>
       <div className='header'>Create an account</div>
       <div className='form-container'>
         <div className='form-group'>
@@ -10,42 +20,57 @@ const RegisterForm = () => {
           <input
             type='email'
             className='form-control'
-            name='email'
             id='email'
-            aria-describedby='emailHelp'
+            {...register('email', { required: true })}
           />
-          <small id='emailHelp' className='form-text text-muted'>
-            We'll never share your email with anyone else.
-          </small>
+          <small id='emailHelp' className='form-text text-muted'></small>
+          {errors.email && (
+            <small style={{ color: '#bf1650' }}>This field is required</small>
+          )}
         </div>
         <div className='form-group'>
           <label htmlFor='username'>Username</label>
           <input
             type='text'
-            name='username'
             className='form-control'
             id='username'
-            aria-describedby='emailHelp'
+            {...register('username', { required: true })}
           />
+          {errors.username && (
+            <small style={{ color: '#bf1650' }}>This field is required</small>
+          )}
         </div>
         <div className='form-group'>
           <label htmlFor='avatar'>Avatar</label>
-          <input
-            type='text'
-            name='avatar'
-            className='form-control'
-            id='avatar'
-            aria-describedby='emailHelp'
-          />
+          <input type='text' className='form-control' id='avatar' />
         </div>
         <div className='form-group'>
           <label htmlFor='password'>Password</label>
           <input
-            name='password'
             type='password'
             className='form-control'
             id='password'
+            {...register('password', {
+              required: true,
+              validate: (value) => {
+                const regex =
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/;
+                console.log(regex.test(value));
+                return regex.test(value);
+              },
+            })}
           />
+          {errors.password && errors.password.type === 'required' && (
+            <small style={{ color: '#bf1650' }}>This field is required!</small>
+          )}
+
+          {errors.password && errors.password.type === 'validate' && (
+            <small style={{ color: '#bf1650' }}>
+              Password must contain at least eight characters, at least one
+              number and both lower and uppercase letters and special
+              characters!
+            </small>
+          )}
         </div>
         {false && <div className='alert alert-danger small'>Some Error</div>}
         <button type='submit' className='btn btn-outline-primary'>

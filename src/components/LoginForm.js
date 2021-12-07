@@ -25,7 +25,6 @@ const LoginForm = () => {
             id='email'
             {...register('email', { required: true })}
           />
-          <small id='emailHelp' className='form-text text-muted'></small>
           {errors.email && (
             <small style={{ color: '#bf1650' }}>This field is required</small>
           )}
