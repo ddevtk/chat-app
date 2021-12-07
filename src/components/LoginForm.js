@@ -25,9 +25,7 @@ const LoginForm = () => {
             id='email'
             {...register('email', { required: true })}
           />
-          <small id='emailHelp' className='form-text text-muted'>
-            We'll never share your email with anyone else.
-          </small>
+          <small id='emailHelp' className='form-text text-muted'></small>
           {errors.email && (
             <small style={{ color: '#bf1650' }}>This field is required</small>
           )}
@@ -40,15 +38,23 @@ const LoginForm = () => {
             id='password'
             {...register('password', {
               required: true,
-              minLength: 8,
+              validate: (value) => {
+                const regex =
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/;
+                console.log(regex.test(value));
+                return regex.test(value);
+              },
             })}
           />
           {errors.password && errors.password.type === 'required' && (
-            <small style={{ color: '#bf1650' }}>This field is required</small>
+            <small style={{ color: '#bf1650' }}>This field is required!</small>
           )}
-          {errors.password && errors.password.type === 'minLength' && (
+
+          {errors.password && errors.password.type === 'validate' && (
             <small style={{ color: '#bf1650' }}>
-              Password must be at least 8 characters
+              Password must contain at least eight characters, at least one
+              number and both lower and uppercase letters and special
+              characters!
             </small>
           )}
         </div>
