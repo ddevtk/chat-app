@@ -1,5 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../redux/actions/authActions';
 
 const RegisterForm = () => {
   const {
@@ -8,8 +10,11 @@ const RegisterForm = () => {
     formState: { errors },
   } = useForm();
 
+  const dispatch = useDispatch();
+
   const onSubmit = (data) => {
     console.log(data);
+    dispatch(registerUser(data));
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='centered-container-form'>
@@ -42,7 +47,12 @@ const RegisterForm = () => {
         </div>
         <div className='form-group'>
           <label htmlFor='avatar'>Avatar</label>
-          <input type='text' className='form-control' id='avatar' />
+          <input
+            type='text'
+            className='form-control'
+            id='avatar'
+            {...register('avatar')}
+          />
         </div>
         <div className='form-group'>
           <label htmlFor='password'>Password</label>
