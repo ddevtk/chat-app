@@ -4,12 +4,14 @@ import AvailableChat from '../components/AvailableChatList';
 import JoinedChat from '../components/JoinedChatList';
 import { fetchChats } from '../redux/actions/chatAction';
 
-const Home = () => {
+const Home = ({ user }) => {
   const dispatch = useDispatch();
   const chats = useSelector((state) => state.chats.items);
+
   useEffect(() => {
     dispatch(fetchChats());
   }, []);
+
   return (
     <div className='row no-gutters fh'>
       <div className='col-3 fh'>

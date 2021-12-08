@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Home from './views/Home';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+  HashRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Setting from './views/Setting';
 import Chat from './views/Chat';
 import Welcome from './views/Welcome';
+import { useDispatch } from 'react-redux';
+import { listenAuthChanges } from './redux/actions/authActions';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(listenAuthChanges());
+  }, []);
+
   return (
     <Router>
       <Navbar />
