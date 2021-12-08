@@ -1,11 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Home from './views/Home';
-import {
-  HashRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-} from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Setting from './views/Setting';
 import Chat from './views/Chat';
@@ -15,10 +10,7 @@ import { listenAuthChanges } from './redux/actions/authActions';
 
 const App = () => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(listenAuthChanges());
-  }, []);
+  dispatch(listenAuthChanges());
 
   return (
     <Router>

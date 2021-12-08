@@ -14,32 +14,38 @@ const Welcome = () => {
     ? ["Don't have an account?", 'Register']
     : ['Already registered? ', 'Login'];
 
+  // if (user) {
+  //   console.log('hello');
+  //   navigate('/home');
+  // }
+
   if (user) {
     console.log('hello');
     navigate('/home');
   }
 
-  if (user !== null) {
-    return (
-      <div className='centered-view'>
-        <div className='centered-container'>
-          {isLogin ? <LoginForm /> : <RegisterForm />}
-          <small className='form-text text-muted mt-2'>
-            {text[0]}
-            <span
-              onClick={() => setIsLogin(!isLogin)}
-              c
-              lassName='btn-link ml-2'
-              style={{ cursor: 'pointer' }}
-            >
-              {text[1]}
-            </span>
-          </small>
-        </div>
-      </div>
-    );
+  if (isChecking) {
+    return <h1>Checking state...</h1>;
   }
-  return <h1>Checking state...</h1>;
+
+  return (
+    <div className='centered-view'>
+      <div className='centered-container'>
+        {isLogin ? <LoginForm /> : <RegisterForm />}
+        <small className='form-text text-muted mt-2'>
+          {text[0]}
+          <span
+            onClick={() => setIsLogin(!isLogin)}
+            c
+            lassName='btn-link ml-2'
+            style={{ cursor: 'pointer' }}
+          >
+            {text[1]}
+          </span>
+        </small>
+      </div>
+    </div>
+  );
 };
 
 export default Welcome;
