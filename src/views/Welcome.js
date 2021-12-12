@@ -14,9 +14,8 @@ const Welcome = () => {
     ? ["Don't have an account?", 'Register']
     : ['Already registered? ', 'Login'];
 
-  console.log(isChecking);
-
   if (user) {
+    console.log(user);
     navigate('/home');
   }
 

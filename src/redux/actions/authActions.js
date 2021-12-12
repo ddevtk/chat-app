@@ -10,6 +10,15 @@ export const registerUser = (formData) => async (dispatch) => {
   }
 };
 
+export const loginUser = (formData) => async (dispatch) => {
+  try {
+    await api.login(formData);
+    dispatch({ type: authActionType.AUTH_LOGIN_SUCCESS });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const listenAuthChanges = () => (dispatch) => {
   dispatch({ type: authActionType.AUTH_ON_INIT });
   api.onAuthStateChange((authUser) => {
@@ -24,4 +33,9 @@ export const listenAuthChanges = () => (dispatch) => {
       console.log('No user is signed in');
     }
   });
+};
+
+export const logoutUser = () => async (dispatch) => {
+  await api.logout();
+  dispatch({ type: authActionType.AUTH_LOGOUT_SUCCESS });
 };

@@ -23,5 +23,16 @@ export const register = async ({ email, password, username, avatar }) => {
   }
 };
 
+export const login = async ({ email, password }) => {
+  const user = await firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password);
+  console.log(user);
+};
+
+export const logout = async () => {
+  await firebase.auth().signOut();
+};
+
 export const onAuthStateChange = (onAuthFn) =>
   firebase.auth().onAuthStateChanged(onAuthFn);
