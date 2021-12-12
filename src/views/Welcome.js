@@ -14,13 +14,9 @@ const Welcome = () => {
     ? ["Don't have an account?", 'Register']
     : ['Already registered? ', 'Login'];
 
-  // if (user) {
-  //   console.log('hello');
-  //   navigate('/home');
-  // }
+  console.log(isChecking);
 
   if (user) {
-    console.log('hello');
     navigate('/home');
   }
 
@@ -36,8 +32,7 @@ const Welcome = () => {
           {text[0]}
           <span
             onClick={() => setIsLogin(!isLogin)}
-            c
-            lassName='btn-link ml-2'
+            className='btn-link ml-2'
             style={{ cursor: 'pointer' }}
           >
             {text[1]}

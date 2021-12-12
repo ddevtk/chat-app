@@ -9,18 +9,19 @@ export const registerUser = (formData) => async (dispatch) => {
     console.log(error.message);
   }
 };
+
 export const listenAuthChanges = () => (dispatch) => {
-  dispatch({ type: authActionType.AUTH_REGISTER_INIT });
+  dispatch({ type: authActionType.AUTH_ON_INIT });
   api.onAuthStateChange((authUser) => {
     if (authUser) {
       dispatch({
-        type: authActionType.AUTH_REGISTER_SUCCESS,
+        type: authActionType.AUTH_ON_SUCCESS,
         payload: authUser,
       });
-      console.log('user is signed in');
+      console.log('User is signed in');
     } else {
-      dispatch({ type: authActionType.AUTH_REGISTER_ERROR });
-      console.log('no user is signed in');
+      dispatch({ type: authActionType.AUTH_ON_ERROR });
+      console.log('No user is signed in');
     }
   });
 };
