@@ -25,20 +25,28 @@ const Navbar = () => {
           </Link>
         </div>
         <div className='chat-navbar-inner-right'>
-          <span className='logged-in-user'>Hi User</span>
-          <Link
+          {/* <Link
             to='/'
             className='btn btn-sm btn-outline-success ml-2 d-flex align-items-center justify-content-center'
           >
             Login
-          </Link>
+          </Link> */}
+
           {user && (
-            <button
-              onClick={() => dispatch(logoutUser())}
-              className='btn btn-sm btn-outline-danger ml-2 d-flex align-items-center justify-content-center'
-            >
-              Logout
-            </button>
+            <>
+              <img
+                src={user.avatar}
+                alt={user.username}
+                className='avatar mr-2'
+              />
+              <span className='logged-in-user'>Hi, {user.username}</span>
+              <button
+                onClick={() => dispatch(logoutUser())}
+                className='btn btn-sm btn-outline-danger ml-2 d-flex align-items-center justify-content-center'
+              >
+                Logout
+              </button>
+            </>
           )}
         </div>
       </nav>

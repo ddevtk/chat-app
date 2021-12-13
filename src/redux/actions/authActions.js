@@ -23,11 +23,13 @@ export const loginUser = (formData) => async (dispatch) => {
 
 export const listenAuthChanges = () => (dispatch) => {
   dispatch({ type: authActionType.AUTH_ON_INIT });
-  api.onAuthStateChange((authUser) => {
+  api.onAuthStateChange(async (authUser) => {
     if (authUser) {
+      const userProfile = await api.getUserProfile(authUser.uid);
+      console.log(userProfile);
       dispatch({
         type: authActionType.AUTH_ON_SUCCESS,
-        payload: authUser,
+        payload: userProfile,
       });
       console.log('User is signed in');
     } else {

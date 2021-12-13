@@ -6,6 +6,11 @@ const createUserProfile = async (userProfile) => {
   await db.collection('profiles').doc(userProfile.uid).set(userProfile);
 };
 
+export const getUserProfile = async (uid) => {
+  const snapshot = await db.collection('profiles').doc(uid).get();
+  return snapshot.data();
+};
+
 export const register = async ({ email, password, username, avatar }) => {
   try {
     const { user } = await firebase
