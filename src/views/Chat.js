@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router';
 import ChatMesList from '../components/ChatMesList';
 import ChatUserList from '../components/ChatUserList';
-import ViewTitle from '../components/ViewTitle';
+import ViewTitle from '../components/shared/ViewTitle';
 
 const Chat = () => {
   const { id } = useParams();

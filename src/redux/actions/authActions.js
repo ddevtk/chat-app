@@ -2,6 +2,7 @@ import * as api from '../../api/auth';
 import { authActionType } from '../type/authActionType';
 
 export const registerUser = (formData) => async (dispatch) => {
+  dispatch({ type: authActionType.AUTH_REGISTER_INIT });
   try {
     await api.register(formData);
     dispatch({ type: authActionType.AUTH_REGISTER_SUCCESS });
@@ -11,6 +12,7 @@ export const registerUser = (formData) => async (dispatch) => {
 };
 
 export const loginUser = (formData) => async (dispatch) => {
+  dispatch({ type: authActionType.AUTH_LOGIN_INIT });
   try {
     await api.login(formData);
     dispatch({ type: authActionType.AUTH_LOGIN_SUCCESS });

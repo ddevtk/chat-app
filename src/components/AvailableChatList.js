@@ -1,5 +1,5 @@
 import React from 'react';
-import ViewTitle from './ViewTitle';
+import ViewTitle from '../components/shared/ViewTitle';
 
 const AvailableChats = ({ chats }) => {
   return (
