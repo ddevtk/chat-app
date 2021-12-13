@@ -16,23 +16,26 @@ export const register = async ({ email, password, username, avatar }) => {
     const { user } = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
-    await createUserProfile({
+    const userProfile = {
       uid: user.uid,
       username,
       email,
       avatar,
       joinedChats: [],
-    });
+    };
+    await createUserProfile(userProfile);
+    return userProfile;
   } catch (error) {
     console.error(error.message);
   }
 };
 
 export const login = async ({ email, password }) => {
-  const user = await firebase
+  const { user } = await firebase
     .auth()
     .signInWithEmailAndPassword(email, password);
-  console.log(user);
+  const userProfile = await getUserProfile(user.uid);
+  return userProfile;
 };
 
 export const logout = async () => {

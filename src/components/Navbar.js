@@ -25,12 +25,12 @@ const Navbar = () => {
           </Link>
         </div>
         <div className='chat-navbar-inner-right'>
-          {/* <Link
+          <Link
             to='/'
             className='btn btn-sm btn-outline-success ml-2 d-flex align-items-center justify-content-center'
           >
             Login
-          </Link> */}
+          </Link>
 
           {user && (
             <>

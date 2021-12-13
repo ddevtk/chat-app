@@ -15,9 +15,10 @@ export const authReducer = (state = defaultState, action) => {
       };
     case authActionType.AUTH_LOGIN_SUCCESS:
     case authActionType.AUTH_REGISTER_SUCCESS:
+      console.log('hello from reducer');
       return {
         ...state,
-        isChecking: false,
+        user: action.payload,
       };
     case authActionType.AUTH_ON_INIT:
       return {
@@ -25,6 +26,7 @@ export const authReducer = (state = defaultState, action) => {
         isChecking: true,
       };
     case authActionType.AUTH_ON_SUCCESS:
+      console.log('hello from reducer 2');
       return {
         user: action.payload,
         isChecking: false,
