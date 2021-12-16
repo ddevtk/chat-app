@@ -9,7 +9,7 @@ const Setting = () => {
     return <Navigate to='/' />;
   }
   return (
-    <Base canGoBack>
+    <Base canGoBack showSetting>
       <div className='centered-view'>
         <div className='centered-container'>
           <form className='centered-container-form'>

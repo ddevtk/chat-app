@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logoutUser } from '../redux/actions/authActions';
 
-const Navbar = ({ canGoBack }) => {
+const Navbar = ({ canGoBack, showSetting }) => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
+
+  console.log(showSetting);
 
   return (
     <div className='chat-navbar'>
@@ -22,9 +24,11 @@ const Navbar = ({ canGoBack }) => {
               Back
             </button>
           )}
-          <Link to='/settings' className='btn btn-outline-success ml-2'>
-            Settings
-          </Link>
+          {!showSetting && (
+            <Link to='/settings' className='btn btn-outline-success ml-2'>
+              Settings
+            </Link>
+          )}
         </div>
         <div className='chat-navbar-inner-right'>
           {user && (

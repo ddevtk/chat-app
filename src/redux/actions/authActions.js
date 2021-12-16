@@ -20,8 +20,10 @@ export const loginUser = (formData) => async (dispatch) => {
     const user = await api.login(formData);
     dispatch({ type: authActionType.AUTH_LOGIN_SUCCESS, payload: user });
   } catch (error) {
-    dispatch({ type: authActionType.AUTH_LOGIN_ERROR, payload: error.message });
-    console.log(error.message);
+    dispatch({
+      type: authActionType.AUTH_LOGIN_ERROR,
+      payload: 'Invalid Username or Password ❗❗❗',
+    });
   }
 };
 
