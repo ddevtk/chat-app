@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import LoginForm from '../components/LoginForm';
 import { useSelector } from 'react-redux';
 import RegisterForm from '../components/RegisterForm';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import LoadingView from '../components/shared/LoadingView';
 
 const Welcome = () => {
   const [isLogin, setIsLogin] = useState(true);
   const { isChecking, user } = useSelector((state) => state.auth);
-
-  const navigate = useNavigate();
 
   const text = isLogin
     ? ["Don't have an account?", 'Register']
@@ -19,7 +17,7 @@ const Welcome = () => {
     return <LoadingView />;
   }
   if (user) {
-    navigate('/home');
+    return <Navigate to='/home' />;
   }
 
   return (

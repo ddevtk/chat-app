@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Home from './views/Home';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import {
+  HashRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from 'react-router-dom';
 import Setting from './views/Setting';
 import Chat from './views/Chat';
 import Welcome from './views/Welcome';
@@ -10,11 +14,11 @@ import { listenAuthChanges } from './redux/actions/authActions';
 
 const App = () => {
   const dispatch = useDispatch();
+
   dispatch(listenAuthChanges());
 
   return (
     <Router>
-      <Navbar />
       <div className='content-wrapper'>
         <Routes>
           <Route path='/' element={<Welcome />} />
