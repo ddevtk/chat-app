@@ -4,14 +4,13 @@ import { authActionType } from '../type/authActionType';
 export const registerUser = (formData) => async (dispatch) => {
   dispatch({ type: authActionType.AUTH_REGISTER_INIT });
   try {
-    await api.register(formData);
-    dispatch({ type: authActionType.AUTH_REGISTER_SUCCESS });
+    const user = await api.register(formData);
+    dispatch({ type: authActionType.AUTH_REGISTER_SUCCESS, payload: user });
   } catch (error) {
     dispatch({
       type: authActionType.AUTH_REGISTER_ERROR,
       payload: error.message,
     });
-    // console.log(error.message);
   }
 };
 

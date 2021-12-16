@@ -26,6 +26,7 @@ export const authReducer = (state = defaultState, action) => {
         ...state,
         user: action.payload,
         error: null,
+        isChecking: false,
       };
 
     case authActionType.AUTH_ON_SUCCESS:
