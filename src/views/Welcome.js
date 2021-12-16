@@ -18,8 +18,7 @@ const Welcome = () => {
   if (isChecking) {
     return <LoadingView />;
   }
-  if (user && !isChecking) {
-    console.log(user);
+  if (user) {
     navigate('/home');
   }
 

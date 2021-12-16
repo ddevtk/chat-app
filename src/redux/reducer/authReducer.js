@@ -3,32 +3,42 @@ import { authActionType } from '../type/authActionType';
 const defaultState = {
   user: null,
   isChecking: false,
+  // error: null,
 };
 
 export const authReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case authActionType.AUTH_LOGIN_INIT:
-    case authActionType.AUTH_REGISTER_INIT:
-      return {
-        ...state,
-        isChecking: true,
-      };
-    case authActionType.AUTH_LOGIN_SUCCESS:
-    case authActionType.AUTH_REGISTER_SUCCESS:
-      console.log('hello from reducer');
-      return {
-        ...state,
-        user: action.payload,
-      };
     case authActionType.AUTH_ON_INIT:
       return {
         user: null,
         isChecking: true,
       };
-    case authActionType.AUTH_ON_SUCCESS:
-      console.log('hello from reducer 2');
+    case authActionType.AUTH_LOGIN_INIT:
+    case authActionType.AUTH_REGISTER_INIT:
       return {
+        ...state,
+        isChecking: true,
+        error: null,
+      };
+    case authActionType.AUTH_LOGIN_SUCCESS:
+    case authActionType.AUTH_REGISTER_SUCCESS:
+      return {
+        ...state,
         user: action.payload,
+        error: null,
+      };
+
+    case authActionType.AUTH_ON_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        isChecking: false,
+      };
+    case authActionType.AUTH_REGISTER_ERROR:
+    case authActionType.AUTH_LOGIN_ERROR:
+      return {
+        ...state,
+        error: action.payload,
         isChecking: false,
       };
     case authActionType.AUTH_ON_ERROR:

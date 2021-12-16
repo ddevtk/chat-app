@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/actions/authActions';
 
 const LoginForm = () => {
@@ -11,6 +11,7 @@ const LoginForm = () => {
   } = useForm();
 
   const dispatch = useDispatch();
+  const { error } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
     dispatch(loginUser(data));
@@ -41,27 +42,13 @@ const LoginForm = () => {
             id='password'
             {...register('password', {
               required: true,
-              validate: (value) => {
-                const regex =
-                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/;
-                console.log(regex.test(value));
-                return regex.test(value);
-              },
             })}
           />
           {errors.password && errors.password.type === 'required' && (
             <small style={{ color: '#bf1650' }}>This field is required!</small>
           )}
-
-          {errors.password && errors.password.type === 'validate' && (
-            <small style={{ color: '#bf1650' }}>
-              Password must contain at least eight characters, at least one
-              number and both lower and uppercase letters and special
-              characters!
-            </small>
-          )}
         </div>
-        {false && <div className='alert alert-danger small'>Some error</div>}
+        {error && <div className='alert alert-danger small'>{error}</div>}
         <button type='submit' className='btn btn-outline-primary'>
           Login
         </button>

@@ -7,16 +7,21 @@ export const registerUser = (formData) => async (dispatch) => {
     await api.register(formData);
     dispatch({ type: authActionType.AUTH_REGISTER_SUCCESS });
   } catch (error) {
-    console.log(error.message);
+    dispatch({
+      type: authActionType.AUTH_REGISTER_ERROR,
+      payload: error.message,
+    });
+    // console.log(error.message);
   }
 };
 
 export const loginUser = (formData) => async (dispatch) => {
   dispatch({ type: authActionType.AUTH_LOGIN_INIT });
   try {
-    await api.login(formData);
-    dispatch({ type: authActionType.AUTH_LOGIN_SUCCESS });
+    const user = await api.login(formData);
+    dispatch({ type: authActionType.AUTH_LOGIN_SUCCESS, payload: user });
   } catch (error) {
+    dispatch({ type: authActionType.AUTH_LOGIN_ERROR, payload: error.message });
     console.log(error.message);
   }
 };
@@ -26,7 +31,6 @@ export const listenAuthChanges = () => (dispatch) => {
   api.onAuthStateChange(async (authUser) => {
     if (authUser) {
       const userProfile = await api.getUserProfile(authUser.uid);
-      console.log(userProfile);
       dispatch({
         type: authActionType.AUTH_ON_SUCCESS,
         payload: userProfile,
