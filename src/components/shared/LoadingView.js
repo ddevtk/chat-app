@@ -1,7 +1,7 @@
 import React from 'react';
 import Loader from './Loader';
 
-const LoadingView = ({ message = 'Just one moment please' }) => {
+const LoadingView = ({ message = 'Just one moment please...' }) => {
   return (
     <div className='loading-screen'>
       <div className='loading-view'>

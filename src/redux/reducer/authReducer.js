@@ -3,7 +3,7 @@ import { authActionType } from '../type/authActionType';
 const defaultState = {
   user: null,
   isChecking: false,
-  // error: null,
+  error: null,
 };
 
 export const authReducer = (state = defaultState, action) => {

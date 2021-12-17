@@ -10,8 +10,6 @@ const Navbar = ({ canGoBack, showSetting }) => {
 
   const dispatch = useDispatch();
 
-  console.log(showSetting);
-
   return (
     <div className='chat-navbar'>
       <nav className='chat-navbar-inner'>
