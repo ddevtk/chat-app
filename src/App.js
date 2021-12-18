@@ -19,10 +19,12 @@ const App = () => {
 
   dispatch(listenAuthChanges());
   useEffect(() => {
+    console.log('hello');
     window.addEventListener('online', alertOnline);
     window.addEventListener('offline', alertOnline);
     return () => {
-      unSubFromAuth();
+      window.removeEventListener('online', alertOnline);
+      window.removeEventListener('offline', alertOnline);
     };
   }, []);
 

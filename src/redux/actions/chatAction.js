@@ -4,6 +4,10 @@ import db from '../../db/firestore';
 
 export const fetchChatsAction = () => async (dispatch) => {
   const chats = await api.fetchChats();
+  chats.forEach(
+    (chat) => (chat.joinedUsers = chat.joinedUsers.map((user) => user.id))
+  );
+
   dispatch({
     type: chatActionType.FETCH_CHATS,
     payload: chats,

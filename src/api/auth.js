@@ -3,11 +3,7 @@ import 'firebase/auth';
 import db from '../db/firestore';
 
 const createUserProfile = async (userProfile) => {
-  try {
-    await db.collection('profiles').doc(userProfile.uid).set(userProfile);
-  } catch (error) {
-    console.error(error.message);
-  }
+  await db.collection('profiles').doc(userProfile.uid).set(userProfile);
 };
 
 export const getUserProfile = async (uid) => {
@@ -16,29 +12,26 @@ export const getUserProfile = async (uid) => {
 };
 
 export const register = async ({ email, password, username, avatar }) => {
-  try {
-    const { user } = await firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password);
-    const userProfile = {
-      uid: user.uid,
-      username,
-      email,
-      avatar,
-      joinedChats: [],
-    };
-    await createUserProfile(userProfile);
-    return userProfile;
-  } catch (error) {
-    console.error(error.message);
-  }
+  const { user } = await firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password);
+  const userProfile = {
+    uid: user.uid,
+    username,
+    email,
+    avatar,
+    joinedChats: [],
+  };
+  await createUserProfile(userProfile);
+  return userProfile;
 };
 
 export const login = async ({ email, password }) => {
   const { user } = await firebase
     .auth()
     .signInWithEmailAndPassword(email, password);
-  const userProfile = await getUserProfile(user.uid);
+
+  const userProfile = await getUserProfile(user.id);
   return userProfile;
 };
 

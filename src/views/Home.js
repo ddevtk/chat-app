@@ -23,10 +23,10 @@ const Home = () => {
     <Base>
       <div className='row no-gutters fh'>
         <div className='col-3 fh'>
-          <JoinedChat chats={chats} />
+          <JoinedChat chats={[]} />
         </div>
         <div className='col-9 fh'>
-          <AvailableChat chats={chats} />
+          <AvailableChat chats={[]} />
         </div>
       </div>
     </Base>

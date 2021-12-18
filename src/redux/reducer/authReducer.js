@@ -47,6 +47,11 @@ export const authReducer = (state = defaultState, action) => {
         user: null,
         isChecking: false,
       };
+    case authActionType.CLEAN_ERROR:
+      return {
+        ...state,
+        error: null,
+      };
     default:
       return state;
   }

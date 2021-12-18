@@ -4,10 +4,13 @@ import { useSelector } from 'react-redux';
 import RegisterForm from '../components/RegisterForm';
 import { Navigate, useNavigate } from 'react-router-dom';
 import LoadingView from '../components/shared/LoadingView';
+import { useDispatch } from 'react-redux';
+import { cleanError } from '../redux/actions/authActions';
 
 const Welcome = () => {
   const [isLogin, setIsLogin] = useState(true);
   const { isChecking, user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const text = isLogin
     ? ["Don't have an account?", 'Register']
@@ -27,7 +30,10 @@ const Welcome = () => {
         <small className='form-text text-muted mt-2'>
           {text[0]}
           <span
-            onClick={() => setIsLogin(!isLogin)}
+            onClick={() => {
+              setIsLogin(!isLogin);
+              dispatch(cleanError());
+            }}
             className='btn-link ml-2'
             style={{ cursor: 'pointer' }}
           >

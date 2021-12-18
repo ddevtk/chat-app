@@ -36,10 +36,8 @@ export const listenAuthChanges = () => (dispatch) => {
         type: authActionType.AUTH_ON_SUCCESS,
         payload: userProfile,
       });
-      console.log('User is signed in');
     } else {
       dispatch({ type: authActionType.AUTH_ON_ERROR });
-      console.log('No user is signed in');
     }
   });
 };
@@ -47,4 +45,8 @@ export const listenAuthChanges = () => (dispatch) => {
 export const logoutUser = () => async (dispatch) => {
   await api.logout();
   dispatch({ type: authActionType.AUTH_LOGOUT_SUCCESS });
+};
+
+export const cleanError = () => (dispatch) => {
+  dispatch({ type: authActionType.CLEAN_ERROR });
 };

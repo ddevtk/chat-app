@@ -1,20 +1,22 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../redux/actions/authActions';
 
 const RegisterForm = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
-
+  const { error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     dispatch(registerUser(data));
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='centered-container-form'>
       <div className='header'>Create an account</div>
@@ -64,7 +66,6 @@ const RegisterForm = () => {
               validate: (value) => {
                 const regex =
                   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$/;
-                console.log(regex.test(value));
                 return regex.test(value);
               },
             })}
@@ -81,7 +82,28 @@ const RegisterForm = () => {
             </small>
           )}
         </div>
-        {false && <div className='alert alert-danger small'>Some Error</div>}
+        <div className='form-group'>
+          <label htmlFor='cf-password'>Confirm password</label>
+          <input
+            type='password'
+            className='form-control'
+            id='cf-password'
+            {...register('password_confirm', {
+              required: 'This field is required!',
+              validate: (value) => {
+                return value === watch('password');
+              },
+            })}
+          />
+
+          {errors.password_confirm &&
+            errors.password_confirm.type === 'validate' && (
+              <small style={{ color: '#bf1650' }}>
+                The passwords do not match
+              </small>
+            )}
+        </div>
+        {error && <div className='alert alert-danger small'>{error}</div>}
         <button type='submit' className='btn btn-outline-primary'>
           Register
         </button>

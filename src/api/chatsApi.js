@@ -10,12 +10,8 @@ export const fetchChats = async () => {
 };
 
 export const createChat = async (chat) => {
-  try {
-    const docRef = await db.collection('chats').add(chat);
-    return docRef.id;
-  } catch (error) {
-    console.error('Error adding document: ', error);
-  }
+  const docRef = await db.collection('chats').add(chat);
+  return docRef.id;
 };
 
 export const joinChat = async (userId, chatId) => {

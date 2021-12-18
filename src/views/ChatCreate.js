@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 import Base from '../layouts/Base';
 import { createChatAction } from '../redux/actions/chatAction';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { joinChat } from '../api/chatsApi';
 
 const ChatCreate = () => {
@@ -20,6 +20,10 @@ const ChatCreate = () => {
   const onSubmit = (data) => {
     dispatch(createChatAction(data, user.uid)).then(navigate('/home'));
   };
+
+  if (!user) {
+    return <Navigate to='/' />;
+  }
 
   return (
     <Base canGoBack>
