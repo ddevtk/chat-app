@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import Base from '../layouts/Base';
 import { createChatAction } from '../redux/actions/chatAction';
 import { useNavigate } from 'react-router-dom';
+import { joinChat } from '../api/chatsApi';
 
 const ChatCreate = () => {
   const { user } = useSelector((state) => state.auth);
@@ -19,6 +20,7 @@ const ChatCreate = () => {
   const onSubmit = (data) => {
     dispatch(createChatAction(data, user.uid)).then(navigate('/home'));
   };
+
   return (
     <Base canGoBack>
       <div className='centered-view'>
