@@ -1,16 +1,23 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
 import Base from '../layouts/Base';
+import { createChatAction } from '../redux/actions/chatAction';
+import { useNavigate } from 'react-router-dom';
 
 const ChatCreate = () => {
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(createChatAction(data, user.uid)).then(navigate('/home'));
   };
   return (
     <Base canGoBack>
@@ -68,7 +75,7 @@ const ChatCreate = () => {
             </div>
             {false && <div className='alert alert-danger small'></div>}
             <button type='submit' className='btn btn-outline-primary'>
-              Login
+              Create
             </button>
           </div>
         </form>

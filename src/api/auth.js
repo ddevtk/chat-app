@@ -3,7 +3,11 @@ import 'firebase/auth';
 import db from '../db/firestore';
 
 const createUserProfile = async (userProfile) => {
-  await db.collection('profiles').doc(userProfile.uid).set(userProfile);
+  try {
+    await db.collection('profiles').doc(userProfile.uid).set(userProfile);
+  } catch (error) {
+    console.error(error.message);
+  }
 };
 
 export const getUserProfile = async (uid) => {

@@ -7,3 +7,13 @@ export const fetchChats = async () => {
   const snapshot = await db.collection('chats').get();
   return toSnapshotData(snapshot);
 };
+
+export const createChat = async (chat) => {
+  try {
+    const docRef = await db.collection('chats').add(chat);
+    console.log(docRef);
+    return docRef;
+  } catch (error) {
+    console.error('Error adding document: ', error);
+  }
+};

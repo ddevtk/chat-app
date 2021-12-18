@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import AvailableChat from '../components/AvailableChatList';
 import JoinedChat from '../components/JoinedChatList';
 import Base from '../layouts/Base';
-import { fetchChats } from '../redux/actions/chatAction';
+import { fetchChatsAction } from '../redux/actions/chatAction';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const Home = () => {
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(fetchChats());
+    dispatch(fetchChatsAction());
   }, []);
 
   if (!user) {

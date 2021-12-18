@@ -1,3 +1,4 @@
 export const chatActionType = {
   FETCH_CHATS: 'FETCH_CHATS',
+  CREATE_CHAT_SUCCESS: 'CREATE_CHAT_SUCCESS',
 };
