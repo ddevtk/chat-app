@@ -7,6 +7,7 @@ import Welcome from './views/Welcome';
 import LoadingView from './components/shared/LoadingView';
 import { useDispatch } from 'react-redux';
 import { listenAuthChanges } from './redux/actions/authActions';
+import ChatCreate from './views/ChatCreate';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Welcome />} />
           <Route path='/home' element={<Home />} />
+          <Route path='chat-create' element={<ChatCreate />} />
           <Route path='/chat/:id' element={<Chat />} />
           <Route path='/settings' element={<Setting />} />
         </Routes>

@@ -1,10 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ViewTitle from '../components/shared/ViewTitle';
 
 const AvailableChats = ({ chats }) => {
   return (
     <>
-      <ViewTitle text={'Choose your channel'} />
+      <ViewTitle text={'Choose your channel'}>
+        <Link className='btn btn-outline-primary' to='/chat-create'>
+          New
+        </Link>
+      </ViewTitle>
       <div className='container-fluid'>
         <div className='row mt-3'>
           {false && (
