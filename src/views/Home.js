@@ -8,7 +8,7 @@ import { fetchChatsAction } from '../redux/actions/chatAction';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const chats = useSelector((state) => state.chats.items);
+  const { items } = useSelector((state) => state.chats);
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -19,14 +19,16 @@ const Home = () => {
     return <Navigate to='/' />;
   }
 
+  console.log(items);
+
   return (
     <Base>
       <div className='row no-gutters fh'>
         <div className='col-3 fh'>
-          <JoinedChat chats={[]} />
+          <JoinedChat chats={items.joined} />
         </div>
         <div className='col-9 fh'>
-          <AvailableChat chats={[]} />
+          <AvailableChat chats={items.available} />
         </div>
       </div>
     </Base>

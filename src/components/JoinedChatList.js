@@ -19,7 +19,7 @@ const JoinedChats = ({ chats }) => {
             className='item'
           >
             <div className='item-status'>
-              <img src={chat.image} alt='Retail Admin' />
+              <img src={chat.imageUrl} alt='Retail Admin' />
               <span className='status online'></span>
             </div>
             <p className='name-time'>

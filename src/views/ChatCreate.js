@@ -12,6 +12,7 @@ import 'firebase/storage';
 
 const ChatCreate = () => {
   const { user } = useSelector((state) => state.auth);
+  const { isCreating } = useSelector((state) => state.chats);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -39,9 +40,11 @@ const ChatCreate = () => {
   } = useForm();
   const onSubmit = async (data) => {
     delete data.image;
-    console.log({ ...data, imageUrl, imageStorage });
-    // dispatch(createChatAction(data, user.uid)).then(navigate('/home'));
+    dispatch(createChatAction({ ...data, imageUrl, imageStorage }, user.uid));
   };
+  if (isCreating === false) {
+    navigate('/home');
+  }
 
   if (!user) {
     return <Navigate to='/' />;
@@ -65,6 +68,11 @@ const ChatCreate = () => {
                 id='name'
                 {...register('name', { required: true })}
               />
+              {errors.name && (
+                <small style={{ color: '#bf1650' }}>
+                  This field is required
+                </small>
+              )}
             </div>
             <div className='form-group'>
               <label htmlFor='description'>Description</label>
@@ -76,6 +84,11 @@ const ChatCreate = () => {
                   required: true,
                 })}
               />
+              {errors.description && (
+                <small style={{ color: '#bf1650' }}>
+                  This field is required
+                </small>
+              )}
             </div>
             <div className='form-group'>
               <label htmlFor='image'>Image</label>
@@ -92,6 +105,11 @@ const ChatCreate = () => {
                 {...register('image', { required: true })}
                 onChange={changeImageHandler}
               />
+              {errors.image && (
+                <small style={{ color: '#bf1650' }}>
+                  This field is required
+                </small>
+              )}
               {imageUrl !== null && (
                 <img
                   className='img-thumbnail'
