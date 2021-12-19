@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
@@ -7,18 +7,40 @@ import Base from '../layouts/Base';
 import { createChatAction } from '../redux/actions/chatAction';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { joinChat } from '../api/chatsApi';
+import firebase from 'firebase/app';
+import 'firebase/storage';
 
 const ChatCreate = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+  const [imageStorage, setImageStorage] = useState(null);
+
+  const changeImageHandler = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  useEffect(async () => {
+    if (image === null) return;
+    const storageRef = firebase.storage().ref();
+    const imageRef = storageRef.child(`images/${image.name}`);
+    await imageRef.put(image);
+    setImageStorage(`images/${image.name}`);
+    setImageUrl(await imageRef.getDownloadURL());
+  }, [image]);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    dispatch(createChatAction(data, user.uid)).then(navigate('/home'));
+  const onSubmit = async (data) => {
+    delete data.image;
+    console.log({ ...data, imageUrl, imageStorage });
+    // dispatch(createChatAction(data, user.uid)).then(navigate('/home'));
   };
 
   if (!user) {
@@ -43,11 +65,6 @@ const ChatCreate = () => {
                 id='name'
                 {...register('name', { required: true })}
               />
-              {/* {errors.email && (
-                <small style={{ color: '#bf1650' }}>
-                  This field is required
-                </small>
-              )} */}
             </div>
             <div className='form-group'>
               <label htmlFor='description'>Description</label>
@@ -59,25 +76,29 @@ const ChatCreate = () => {
                   required: true,
                 })}
               />
-              {/* {errors.password && errors.password.type === 'required' && (
-                <small style={{ color: '#bf1650' }}>
-                  This field is required!
-                </small>
-              )} */}
             </div>
             <div className='form-group'>
               <label htmlFor='image'>Image</label>
               <input
-                type='text'
+                type='file'
                 className='form-control'
                 id='image'
+                style={{
+                  padding: '0',
+                  backgroundColor: '#f4f4f4',
+                  border: 'none',
+                }}
+                accept='image/*'
                 {...register('image', { required: true })}
+                onChange={changeImageHandler}
               />
-              {/* {errors.email && (
-                <small style={{ color: '#bf1650' }}>
-                  This field is required
-                </small>
-              )} */}
+              {imageUrl !== null && (
+                <img
+                  className='img-thumbnail'
+                  style={{ maxHeight: '30vh' }}
+                  src={imageUrl}
+                />
+              )}
             </div>
             {false && <div className='alert alert-danger small'></div>}
             <button type='submit' className='btn btn-outline-primary'>
