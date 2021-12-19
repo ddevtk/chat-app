@@ -11,7 +11,13 @@ export const getUserProfile = async (uid) => {
   return snapshot.data();
 };
 
-export const register = async ({ email, password, username, avatar }) => {
+export const register = async ({
+  email,
+  password,
+  username,
+  avatarUrl,
+  avatarStorage,
+}) => {
   const { user } = await firebase
     .auth()
     .createUserWithEmailAndPassword(email, password);
@@ -19,7 +25,8 @@ export const register = async ({ email, password, username, avatar }) => {
     uid: user.uid,
     username,
     email,
-    avatar,
+    avatarUrl,
+    avatarStorage,
     joinedChats: [],
   };
   await createUserProfile(userProfile);

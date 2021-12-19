@@ -2,15 +2,18 @@ import { chatActionType } from '../type/chatActionType';
 import * as api from '../../api/chatsApi';
 import db from '../../db/firestore';
 
-export const fetchChatsAction = () => async (dispatch, getState) => {
-  const { user } = getState().auth;
+export const fetchChatsAction = (user) => async (dispatch) => {
   const chats = await api.fetchChats();
   chats.forEach((chat) => {
-    chat.joinedUsers = chat.joinedUsers.map((user) => user.id);
+    chat.joinedUsers = chat.joinedUsers.map((user) => {
+      console.log(user.id);
+      return user.id;
+    });
   });
 
   const sortedChats = chats.reduce(
     (acc, cur) => {
+      console.log(cur);
       const keyword = cur.joinedUsers.includes(user.uid)
         ? 'joined'
         : 'available';
@@ -44,4 +47,6 @@ export const createChatAction = (formData, uid) => async (dispatch) => {
   }
 };
 
-// https://banner2.cleanpng.com/20180627/qvc/kisspng-the-legend-of-zelda-majora-s-mask-discord-compute-discord-icon-5b3371b7b55eb4.6840271215300981037429.jpg
+export const cleanChatStateAction = () => (dispatch) => {
+  dispatch({ type: chatActionType.CLEAN_STATE });
+};

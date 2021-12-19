@@ -4,7 +4,10 @@ import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 
 import Base from '../layouts/Base';
-import { createChatAction } from '../redux/actions/chatAction';
+import {
+  cleanChatStateAction,
+  createChatAction,
+} from '../redux/actions/chatAction';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { joinChat } from '../api/chatsApi';
 import firebase from 'firebase/app';
@@ -13,6 +16,11 @@ import 'firebase/storage';
 const ChatCreate = () => {
   const { user } = useSelector((state) => state.auth);
   const { isCreating } = useSelector((state) => state.chats);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,6 +33,7 @@ const ChatCreate = () => {
   };
 
   useEffect(async () => {
+    // dispatch(cleanChatStateAction());
     if (image === null) return;
     const storageRef = firebase.storage().ref();
     const imageRef = storageRef.child(`images/${image.name}`);
@@ -33,11 +42,6 @@ const ChatCreate = () => {
     setImageUrl(await imageRef.getDownloadURL());
   }, [image]);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
   const onSubmit = async (data) => {
     delete data.image;
     dispatch(createChatAction({ ...data, imageUrl, imageStorage }, user.uid));

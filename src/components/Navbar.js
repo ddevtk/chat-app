@@ -32,7 +32,7 @@ const Navbar = ({ canGoBack, showSetting }) => {
           {user && (
             <>
               <img
-                src={user.avatar}
+                src={user.avatarUrl}
                 alt={user.username}
                 className='avatar mr-2'
               />

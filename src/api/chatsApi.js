@@ -1,12 +1,14 @@
 import db from '../db/firestore';
 import firebase from 'firebase/app';
 
-const toSnapshotData = (snapshot) =>
-  snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-
 export const fetchChats = async () => {
   const snapshot = await db.collection('chats').get();
-  return toSnapshotData(snapshot);
+
+  const chats = snapshot.docs.map((doc) => {
+    const chat = doc.data();
+    return { id: doc.id, ...chat };
+  });
+  return chats;
 };
 
 export const createChat = async (chat) => {

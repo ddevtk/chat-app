@@ -18,7 +18,7 @@ export const loginUser = (formData) => async (dispatch) => {
   dispatch({ type: authActionType.AUTH_LOGIN_INIT });
   try {
     const user = await api.login(formData);
-    dispatch({ type: authActionType.AUTH_LOGIN_SUCCESS, payload: user });
+    dispatch({ type: authActionType.AUTH_LOGIN_SUCCESS });
   } catch (error) {
     dispatch({
       type: authActionType.AUTH_LOGIN_ERROR,

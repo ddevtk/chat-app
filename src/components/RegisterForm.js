@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../redux/actions/authActions';
+import firebase from 'firebase/app';
+import 'firebase/storage';
 
 const RegisterForm = () => {
   const {
@@ -13,8 +15,26 @@ const RegisterForm = () => {
   const { error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
+  const [image, setImage] = useState(null);
+  const [avatarUrl, setAvatarUrl] = useState(null);
+  const [avatarStorage, setAvatarStorage] = useState(null);
+
+  const changeImageHandler = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  useEffect(async () => {
+    if (image === null) return;
+    const storageRef = firebase.storage().ref();
+    const imageRef = storageRef.child(`users/${image.name}`);
+    await imageRef.put(image);
+    setAvatarStorage(`images/${image.name}`);
+    setAvatarUrl(await imageRef.getDownloadURL());
+  }, [image]);
+
   const onSubmit = (data) => {
-    dispatch(registerUser(data));
+    delete data.avatar;
+    dispatch(registerUser({ ...data, avatarUrl, avatarStorage }));
   };
 
   return (
@@ -49,11 +69,28 @@ const RegisterForm = () => {
         <div className='form-group'>
           <label htmlFor='avatar'>Avatar</label>
           <input
-            type='text'
+            type='file'
             className='form-control'
             id='avatar'
-            {...register('avatar')}
+            style={{
+              padding: '0',
+              backgroundColor: '#f4f4f4',
+              border: 'none',
+            }}
+            accept='image/*'
+            {...register('avatar', { required: true })}
+            onChange={changeImageHandler}
           />
+          {errors.image && (
+            <small style={{ color: '#bf1650' }}>This field is required</small>
+          )}
+          {avatarUrl !== null && (
+            <img
+              className='rounded-circle z-depth-2'
+              style={{ width: '100px' }}
+              src={avatarUrl}
+            />
+          )}
         </div>
         <div className='form-group'>
           <label htmlFor='password'>Password</label>

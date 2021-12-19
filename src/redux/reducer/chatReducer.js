@@ -9,6 +9,11 @@ export const chatReducer = (
       return { ...state, items: action.payload };
     case chatActionType.JOIN_CHAT_SUCCESS:
       return { ...state, isCreating: false };
+    case chatActionType.CLEAN_STATE:
+      return {
+        ...state,
+        isCreating: null,
+      };
     default:
       return state;
   }

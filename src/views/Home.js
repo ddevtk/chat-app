@@ -12,14 +12,12 @@ const Home = () => {
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(fetchChatsAction());
+    dispatch(fetchChatsAction(user));
   }, []);
 
   if (!user) {
     return <Navigate to='/' />;
   }
-
-  console.log(items);
 
   return (
     <Base>

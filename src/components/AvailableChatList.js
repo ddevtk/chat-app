@@ -17,7 +17,7 @@ const AvailableChats = ({ chats }) => {
               <div className='alert alert-warning'>No chats to join :</div>
             </div>
           )}
-          {chats.map((chat) => (
+          {chats?.map((chat) => (
             <div className='col-lg-3 col-md-6 mb-3' key={chat.id}>
               <div className='card'>
                 <div className='card-body'>

@@ -12,7 +12,7 @@ const JoinedChats = ({ chats }) => {
         </div>
       </div>
       <ul className='items'>
-        {chats.map((chat) => (
+        {chats?.map((chat) => (
           <li
             key={chat.id}
             onClick={() => navigate('/chat/1')}

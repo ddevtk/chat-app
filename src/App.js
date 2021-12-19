@@ -17,8 +17,8 @@ const App = () => {
     navigator.onLine ? setIsOnline(true) : setIsOnline(false);
   };
 
-  dispatch(listenAuthChanges());
   useEffect(() => {
+    dispatch(listenAuthChanges());
     console.log('hello');
     window.addEventListener('online', alertOnline);
     window.addEventListener('offline', alertOnline);
