@@ -55,3 +55,17 @@ export const joinChatAction = (chatId) => async (dispatch, getState) => {
 export const refreshChatCreateState = () => (dispatch) => {
   dispatch({ type: chatActionType.REFRESH_STATE_WHEN_CREATE_CHAT });
 };
+
+export const subscribeToChat = (chatId) => async (dispatch) => {
+  const chat = await api.subscribeToChat(chatId);
+  const joinedUsers = await Promise.all(
+    chat.joinedUsers.map(async (userRef) => {
+      const snapshot = await userRef.get();
+      return { id: snapshot.id, ...snapshot.data() };
+    })
+  );
+  chat.joinedUsers = joinedUsers;
+  console.log(chat);
+
+  dispatch({ type: chatActionType.SET_ACTIVE_CHAT, payload: chat });
+};

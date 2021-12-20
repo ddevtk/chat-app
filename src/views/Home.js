@@ -13,7 +13,6 @@ const Home = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       dispatch(fetchChatsAction());
     }
   }, []);

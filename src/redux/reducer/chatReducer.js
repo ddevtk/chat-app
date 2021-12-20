@@ -1,7 +1,7 @@
 import { chatActionType } from '../type/chatActionType';
 
 export const chatReducer = (
-  state = { items: [], isCreating: null },
+  state = { activeChats: [], items: [], isCreating: null },
   action
 ) => {
   switch (action.type) {
@@ -16,9 +16,22 @@ export const chatReducer = (
       };
     case chatActionType.CLEAN_STATE:
       return {
+        ...state,
         items: [],
         isCreating: null,
+        activeChats: [],
       };
+    case chatActionType.SET_ACTIVE_CHAT:
+      state.activeChats.push(action.payload);
+
+      const newArr = state.activeChats.reduce((pre, cur) => {
+        if (!pre.some((obj) => obj.id === cur.id)) {
+          pre.push(cur);
+        }
+        return pre;
+      }, []);
+
+      return { ...state, activeChats: newArr };
     default:
       return state;
   }

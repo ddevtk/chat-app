@@ -15,7 +15,7 @@ const JoinedChats = ({ chats }) => {
         {chats?.map((chat) => (
           <li
             key={chat.id}
-            onClick={() => navigate('/chat/1')}
+            onClick={() => navigate(`/chat/${chat.id}`)}
             className='item'
           >
             <div className='item-status'>
