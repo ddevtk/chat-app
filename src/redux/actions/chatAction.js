@@ -2,7 +2,8 @@ import { chatActionType } from '../type/chatActionType';
 import * as api from '../../api/chatsApi';
 import db from '../../db/firestore';
 
-export const fetchChatsAction = (user) => async (dispatch) => {
+export const fetchChatsAction = () => async (dispatch, getState) => {
+  const { user } = getState().auth;
   const chats = await api.fetchChats();
   chats.forEach((chat) => {
     chat.joinedUsers = chat.joinedUsers.map((user) => {
@@ -12,7 +13,7 @@ export const fetchChatsAction = (user) => async (dispatch) => {
 
   const sortedChats = chats.reduce(
     (acc, cur) => {
-      const keyword = cur.joinedUsers.includes(user.uid)
+      const keyword = cur.joinedUsers.includes(user?.uid)
         ? 'joined'
         : 'available';
 
@@ -43,6 +44,12 @@ export const createChatAction = (formData, uid) => async (dispatch) => {
   } catch (error) {
     console.error(error.message);
   }
+};
+
+export const joinChatAction = (chatId) => async (dispatch, getState) => {
+  const { uid } = getState().auth.user;
+  await api.joinChat(uid, chatId);
+  dispatch({ type: chatActionType.JOIN_CHAT_SUCCESS });
 };
 
 export const refreshChatCreateState = () => (dispatch) => {

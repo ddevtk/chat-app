@@ -1,8 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ViewTitle from '../components/shared/ViewTitle';
+import { Modal } from 'antd';
+import 'antd/dist/antd.css';
+import { useDispatch } from 'react-redux';
+import { fetchChatsAction, joinChatAction } from '../redux/actions/chatAction';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const AvailableChats = ({ chats }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [chatItem, setChatItem] = useState();
+  const dispatch = useDispatch();
+
+  const handleOk = () => {
+    console.log(chatItem.id);
+    dispatch(joinChatAction(chatItem.id)).then(() => {
+      dispatch(fetchChatsAction()).then(() => {
+        setShowModal(false);
+      });
+    });
+  };
+  const handleCancel = () => {
+    setShowModal(false);
+  };
+  const showModalHandler = (chat) => {
+    setChatItem(chat);
+    setShowModal(true);
+  };
+
   return (
     <>
       <ViewTitle text={'Choose your channel'}>
@@ -24,7 +49,7 @@ const AvailableChats = ({ chats }) => {
                   <h5 className='card-title'>{chat.name}</h5>
                   <p className='card-text'>{chat.description}</p>
                   <button
-                    onClick={() => {}}
+                    onClick={() => showModalHandler(chat)}
                     className='btn btn-outline-primary'
                   >
                     Join Chat
@@ -35,6 +60,19 @@ const AvailableChats = ({ chats }) => {
           ))}
         </div>
       </div>
+      <Modal
+        centered
+        visible={showModal}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <span className='d-flex align-items-center'>
+          <ExclamationCircleOutlined
+            style={{ color: '#faad14', marginRight: '5px', fontSize: '150%' }}
+          />{' '}
+          Do you want to join the chat ?
+        </span>
+      </Modal>
     </>
   );
 };

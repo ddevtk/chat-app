@@ -12,7 +12,10 @@ const Home = () => {
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(fetchChatsAction(user));
+    if (user) {
+      console.log(user);
+      dispatch(fetchChatsAction());
+    }
   }, []);
 
   if (!user) {
