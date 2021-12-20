@@ -6,14 +6,12 @@ export const fetchChatsAction = (user) => async (dispatch) => {
   const chats = await api.fetchChats();
   chats.forEach((chat) => {
     chat.joinedUsers = chat.joinedUsers.map((user) => {
-      console.log(user.id);
       return user.id;
     });
   });
 
   const sortedChats = chats.reduce(
     (acc, cur) => {
-      console.log(cur);
       const keyword = cur.joinedUsers.includes(user.uid)
         ? 'joined'
         : 'available';
@@ -47,6 +45,6 @@ export const createChatAction = (formData, uid) => async (dispatch) => {
   }
 };
 
-export const cleanChatStateAction = () => (dispatch) => {
-  dispatch({ type: chatActionType.CLEAN_STATE });
+export const refreshChatCreateState = () => (dispatch) => {
+  dispatch({ type: chatActionType.REFRESH_STATE_WHEN_CREATE_CHAT });
 };

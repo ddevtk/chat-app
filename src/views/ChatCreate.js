@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 
 import Base from '../layouts/Base';
 import {
-  cleanChatStateAction,
   createChatAction,
+  refreshChatCreateState,
 } from '../redux/actions/chatAction';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { joinChat } from '../api/chatsApi';
@@ -33,7 +33,7 @@ const ChatCreate = () => {
   };
 
   useEffect(async () => {
-    // dispatch(cleanChatStateAction());
+    dispatch(refreshChatCreateState());
     if (image === null) return;
     const storageRef = firebase.storage().ref();
     const imageRef = storageRef.child(`images/${image.name}`);

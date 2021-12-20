@@ -38,7 +38,7 @@ export const login = async ({ email, password }) => {
     .auth()
     .signInWithEmailAndPassword(email, password);
 
-  const userProfile = await getUserProfile(user.id);
+  const userProfile = await getUserProfile(user.uid);
   return userProfile;
 };
 

@@ -1,5 +1,6 @@
 import * as api from '../../api/auth';
 import { authActionType } from '../type/authActionType';
+import { chatActionType } from '../type/chatActionType';
 
 export const registerUser = (formData) => async (dispatch) => {
   dispatch({ type: authActionType.AUTH_REGISTER_INIT });
@@ -18,7 +19,7 @@ export const loginUser = (formData) => async (dispatch) => {
   dispatch({ type: authActionType.AUTH_LOGIN_INIT });
   try {
     const user = await api.login(formData);
-    dispatch({ type: authActionType.AUTH_LOGIN_SUCCESS });
+    dispatch({ type: authActionType.AUTH_LOGIN_SUCCESS, payload: user });
   } catch (error) {
     dispatch({
       type: authActionType.AUTH_LOGIN_ERROR,
@@ -45,6 +46,7 @@ export const listenAuthChanges = () => (dispatch) => {
 export const logoutUser = () => async (dispatch) => {
   await api.logout();
   dispatch({ type: authActionType.AUTH_LOGOUT_SUCCESS });
+  dispatch({ type: chatActionType.CLEAN_STATE });
 };
 
 export const cleanError = () => (dispatch) => {
