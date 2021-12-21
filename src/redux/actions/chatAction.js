@@ -56,16 +56,21 @@ export const refreshChatCreateState = () => (dispatch) => {
   dispatch({ type: chatActionType.REFRESH_STATE_WHEN_CREATE_CHAT });
 };
 
-export const subscribeToChat = (chatId) => async (dispatch) => {
-  const chat = await api.subscribeToChat(chatId);
-  const joinedUsers = await Promise.all(
-    chat.joinedUsers.map(async (userRef) => {
-      const snapshot = await userRef.get();
-      return { id: snapshot.id, ...snapshot.data() };
-    })
-  );
-  chat.joinedUsers = joinedUsers;
-  console.log(chat);
+export const subscribeToChat = (chatId) => (dispatch) =>
+  api.subscribeToChat(chatId, async (chat) => {
+    const joinedUsers = await Promise.all(
+      chat.joinedUsers.map(async (userRef) => {
+        const snapshot = await userRef.get();
+        return { id: snapshot.id, ...snapshot.data() };
+      })
+    );
+    chat.joinedUsers = joinedUsers;
+    dispatch({ type: chatActionType.SET_ACTIVE_CHAT, payload: chat });
+  });
 
-  dispatch({ type: chatActionType.SET_ACTIVE_CHAT, payload: chat });
+export const subscribeToProfile = (userId) => (dispatch) => {
+  return api.subscribeToJoinedUser(userId, (user) => {
+    console.log('changed profile !');
+    dispatch({ type: 'CHATS_UPDATE_USER_STATE', payload: user });
+  });
 };

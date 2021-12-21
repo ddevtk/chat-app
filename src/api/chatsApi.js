@@ -28,8 +28,22 @@ export const joinChat = async (userId, chatId) => {
   });
 };
 
-export const subscribeToChat = async (chatId) => {
-  const snapshot = await db.collection('chats').doc(chatId).get();
-  const chat = { id: snapshot.id, ...snapshot.data() };
-  return chat;
+export const subscribeToChat = (chatId, onSubscribe) => {
+  return db
+    .collection('chats')
+    .doc(chatId)
+    .onSnapshot((snapshot) => {
+      const chat = { id: snapshot.id, ...snapshot.data() };
+      console.log('test');
+      onSubscribe(chat);
+    });
+};
+
+export const subscribeToJoinedUser = (userId, onSubscribe) => {
+  return db
+    .collection('profiles')
+    .doc(userId)
+    .onSnapshot((snapshot) => {
+      onSubscribe(snapshot.data());
+    });
 };

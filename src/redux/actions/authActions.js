@@ -1,4 +1,4 @@
-import * as api from '../../api/auth';
+import * as api from '../../api/authApi';
 import { authActionType } from '../type/authActionType';
 import { chatActionType } from '../type/chatActionType';
 
