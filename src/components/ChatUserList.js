@@ -4,9 +4,9 @@ const ChatUserList = ({ users }) => {
   return (
     <div className='list-container'>
       <div className='chat-search-box'>
-        <div className='input-group'>
-          <input className='form-control' placeholder='Search' />
-        </div>
+        {/* <div className='input-group'>
+          <input className='form-control' placeholder='Search...' />
+        </div> */}
       </div>
       <ul className='items'>
         {users?.map((user, id) => {

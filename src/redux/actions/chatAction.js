@@ -25,6 +25,7 @@ export const fetchChatsAction = () => async (dispatch, getState) => {
       available: [],
     }
   );
+  console.log(sortedChats);
 
   dispatch({
     type: chatActionType.FETCH_CHATS,

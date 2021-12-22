@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logoutUser } from '../redux/actions/authActions';
-import { checkUserConnection } from '../redux/actions/connectionAction';
+import { Avatar, Image } from 'antd';
 
 const Navbar = ({ canGoBack, showSetting }) => {
   const navigate = useNavigate();
@@ -12,7 +12,6 @@ const Navbar = ({ canGoBack, showSetting }) => {
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
-    // dispatch(checkUserConnection(user.uid, 'offline'));
     dispatch(logoutUser(user.uid, 'offline'));
   };
 
@@ -29,7 +28,10 @@ const Navbar = ({ canGoBack, showSetting }) => {
             </button>
           )}
           {!showSetting && (
-            <Link to='/settings' className='btn btn-outline-success ml-2'>
+            <Link
+              to='/settings'
+              className='btn btn-outline-success ml-2 d-flex align-items-center'
+            >
               Settings
             </Link>
           )}
@@ -37,10 +39,11 @@ const Navbar = ({ canGoBack, showSetting }) => {
         <div className='chat-navbar-inner-right'>
           {user && (
             <>
-              <img
-                src={user.avatarUrl}
+              <Avatar
+                src={<Image src={user.avatarUrl} />}
                 alt={user.username}
-                className='avatar mr-2'
+                size={48}
+                className='mr-2'
               />
               <span className='logged-in-user'>Hi, {user.username}</span>
               <button
