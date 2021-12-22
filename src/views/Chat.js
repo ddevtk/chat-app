@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import { Navigate } from 'react-router-dom';
 import ChatMesList from '../components/ChatMesList';
 import ChatUserList from '../components/ChatUserList';
+import LoadingView from '../components/shared/LoadingView';
 import ViewTitle from '../components/shared/ViewTitle';
 import Base from '../layouts/Base';
 import {
@@ -18,12 +19,10 @@ const Chat = () => {
   const { activeChats } = useSelector((state) => state.chats);
   const dispatch = useDispatch();
 
-  const joinRoom = activeChats.filter((chat) => chat.id === id)[0];
+  const joinRoom = activeChats?.filter((chat) => chat.id === id)[0];
   const joinedUsers = joinRoom?.joinedUsers;
-  console.log(joinRoom);
 
   const subscribeToJoinedUsers = (jUsers) => {
-    console.log('hello');
     jUsers.forEach((user) => {
       if (!peopleWatchers.current[user.id]) {
         peopleWatchers.current[user.id] = dispatch(
@@ -54,8 +53,9 @@ const Chat = () => {
   if (!user) {
     return <Navigate to='/' />;
   }
-
-  console.log(joinRoom);
+  // if (activeChats.length === 0) {
+  //   return <LoadingView />;
+  // }
 
   return (
     <Base canGoBack>

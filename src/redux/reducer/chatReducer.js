@@ -16,7 +16,6 @@ export const chatReducer = (
       };
     case chatActionType.CLEAN_STATE:
       return {
-        ...state,
         items: [],
         isCreating: null,
         activeChats: [],

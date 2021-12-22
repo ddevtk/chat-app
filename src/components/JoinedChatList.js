@@ -11,7 +11,7 @@ const JoinedChats = ({ chats }) => {
     setValue(e.target.value);
   };
   useEffect(() => {
-    const jChats = chats.filter((chat) => {
+    const jChats = chats?.filter((chat) => {
       return formatString(chat.name).includes(formatString(value));
     });
     setJoinedChats(jChats);
