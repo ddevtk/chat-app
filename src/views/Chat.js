@@ -20,6 +20,7 @@ const Chat = () => {
 
   const joinRoom = activeChats.filter((chat) => chat.id === id)[0];
   const joinedUsers = joinRoom?.joinedUsers;
+  console.log(joinRoom);
 
   const subscribeToJoinedUsers = (jUsers) => {
     console.log('hello');
@@ -54,6 +55,8 @@ const Chat = () => {
     return <Navigate to='/' />;
   }
 
+  console.log(joinRoom);
+
   return (
     <Base canGoBack>
       <div className='row no-gutters fh'>
@@ -61,7 +64,7 @@ const Chat = () => {
           <ChatUserList users={joinRoom?.joinedUsers} />
         </div>
         <div className='col-9 fh'>
-          <ViewTitle text={`Joined channel:  ${id}`} />
+          <ViewTitle text={joinRoom?.name} imageUrl={joinRoom?.imageUrl} />
           <ChatMesList />
         </div>
       </div>

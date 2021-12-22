@@ -34,11 +34,8 @@ export const chatReducer = (
       return { ...state, activeChats: newArr };
     case chatActionType.CHATS_UPDATE_USER_STATE:
       const { chatId, user } = action.payload;
-      console.log(action.payload);
-      console.log(state.activeChats);
       state.activeChats.forEach((chat) => {
         if (chat.id === chatId) {
-          console.log(chat);
           chat.joinedUsers.forEach((jUser) => {
             if (jUser.id === user.uid) {
               console.log(jUser);

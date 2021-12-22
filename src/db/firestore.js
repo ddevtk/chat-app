@@ -8,8 +8,6 @@ const firebaseConfig = {
   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.FIREBASE_APP_ID,
   measurementId: process.env.FIREBASE_MEASUREMENT_ID,
-  databaseURL:
-    'https://chat-app-electron-b2308-default-rtdb.asia-southeast1.firebasedatabase.app',
   // apiKey: 'AIzaSyCgqk4kWClwLstQ5VWMdJ_v0ocQanqXi44',
   // authDomain: 'chat-app-electron-b2308.firebaseapp.com',
   // projectId: 'chat-app-electron-b2308',

@@ -1,12 +1,15 @@
 import React from 'react';
+import { Avatar } from 'antd';
 
-const ViewTitle = ({ text, children }) => {
+const ViewTitle = ({ text, children, imageUrl }) => {
+  console.log(imageUrl);
   return (
     <div className='chat-name-container'>
-      <span className='name'>{text}</span>
-      {/* <a href='/' className='btn btn-primary btn-sm back-button'>
-        Back
-      </a> */}
+      <div className='d-flex justify-content-center align-items-center'>
+        {imageUrl && <Avatar size={50} src={imageUrl} className='mr-2' />}
+        <span className='name'>{text}</span>
+      </div>
+
       <div className='d-flex align-items-center justify-content-center'>
         {children}
       </div>
