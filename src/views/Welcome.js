@@ -29,6 +29,7 @@ const Welcome = () => {
   if (user) {
     return <Navigate to='/home' />;
   }
+  console.log('hello');
 
   return (
     <div className='centered-view'>

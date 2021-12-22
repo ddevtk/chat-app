@@ -14,7 +14,7 @@ const ChatUserList = ({ users }) => {
             <li onClick={() => {}} className='item' key={id}>
               <div className='item-status'>
                 <img src={user.avatarUrl} alt={user.username} />
-                <span className='status online'></span>
+                <span className={`status ${user.state}`}></span>
               </div>
               <p className='name-time'>
                 <span className='name mr-2'>{user.username}</span>

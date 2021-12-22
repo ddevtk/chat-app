@@ -12,8 +12,8 @@ const Navbar = ({ canGoBack, showSetting }) => {
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
-    dispatch(checkUserConnection(user.uid, 'offline'));
-    dispatch(logoutUser());
+    // dispatch(checkUserConnection(user.uid, 'offline'));
+    dispatch(logoutUser(user.uid, 'offline'));
   };
 
   return (

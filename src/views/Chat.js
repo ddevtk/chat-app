@@ -20,12 +20,14 @@ const Chat = () => {
 
   const joinRoom = activeChats.filter((chat) => chat.id === id)[0];
   const joinedUsers = joinRoom?.joinedUsers;
-  console.log(joinedUsers);
 
   const subscribeToJoinedUsers = (jUsers) => {
+    console.log('hello');
     jUsers.forEach((user) => {
       if (!peopleWatchers.current[user.id]) {
-        peopleWatchers.current[user.id] = dispatch(subscribeToProfile(user.id));
+        peopleWatchers.current[user.id] = dispatch(
+          subscribeToProfile(user.id, id)
+        );
       }
     });
   };
