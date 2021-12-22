@@ -18,15 +18,15 @@ const App = () => {
   };
 
   dispatch(listenAuthChanges());
+
   useEffect(() => {
-    console.log('hello');
     window.addEventListener('online', alertOnline);
     window.addEventListener('offline', alertOnline);
     return () => {
       window.removeEventListener('online', alertOnline);
       window.removeEventListener('offline', alertOnline);
     };
-  }, []);
+  }, [dispatch]);
 
   if (isOnline !== null) {
     if (!isOnline) {

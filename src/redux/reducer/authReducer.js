@@ -2,7 +2,7 @@ import { authActionType } from '../type/authActionType';
 
 const defaultState = {
   user: null,
-  isChecking: false,
+  isChecking: null,
   error: null,
 };
 
@@ -10,6 +10,7 @@ export const authReducer = (state = defaultState, action) => {
   switch (action.type) {
     case authActionType.AUTH_ON_INIT:
       return {
+        ...state,
         user: null,
         isChecking: true,
       };
@@ -19,6 +20,10 @@ export const authReducer = (state = defaultState, action) => {
         ...state,
         isChecking: true,
         error: null,
+      };
+    case authActionType.AUTH_LOGOUT_SUCCESS:
+      return {
+        ...defaultState,
       };
     case authActionType.AUTH_LOGIN_SUCCESS:
     case authActionType.AUTH_REGISTER_SUCCESS:
@@ -45,8 +50,7 @@ export const authReducer = (state = defaultState, action) => {
       };
     case authActionType.AUTH_ON_ERROR:
       return {
-        user: null,
-        isChecking: false,
+        ...defaultState,
       };
     case authActionType.CLEAN_ERROR:
       return {

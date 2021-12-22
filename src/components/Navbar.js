@@ -3,12 +3,18 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logoutUser } from '../redux/actions/authActions';
+import { checkUserConnection } from '../redux/actions/connectionAction';
 
 const Navbar = ({ canGoBack, showSetting }) => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
+
+  const logoutHandler = () => {
+    dispatch(checkUserConnection(user.uid, 'offline'));
+    dispatch(logoutUser());
+  };
 
   return (
     <div className='chat-navbar'>
@@ -38,7 +44,7 @@ const Navbar = ({ canGoBack, showSetting }) => {
               />
               <span className='logged-in-user'>Hi, {user.username}</span>
               <button
-                onClick={() => dispatch(logoutUser())}
+                onClick={logoutHandler}
                 className='btn btn-sm btn-outline-danger ml-2 d-flex align-items-center justify-content-center'
               >
                 Logout

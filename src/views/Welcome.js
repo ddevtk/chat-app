@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoginForm from '../components/LoginForm';
 import { useSelector } from 'react-redux';
 import RegisterForm from '../components/RegisterForm';
@@ -6,6 +6,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import LoadingView from '../components/shared/LoadingView';
 import { useDispatch } from 'react-redux';
 import { cleanError } from '../redux/actions/authActions';
+import { checkUserConnection } from '../redux/actions/connectionAction';
 
 const Welcome = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -15,6 +16,12 @@ const Welcome = () => {
   const text = isLogin
     ? ["Don't have an account?", 'Register']
     : ['Already registered? ', 'Login'];
+
+  useEffect(() => {
+    if (user?.uid) {
+      dispatch(checkUserConnection(user.uid, 'online'));
+    }
+  }, [dispatch, user]);
 
   if (isChecking) {
     return <LoadingView />;
