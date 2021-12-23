@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import AvailableChat from '../components/AvailableChatList';
@@ -9,12 +9,12 @@ import { fetchChatsAction } from '../redux/actions/chatAction';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { items } = useSelector((state) => state.chats);
+  const { items, isFetching } = useSelector((state) => state.chats);
   const { user } = useSelector((state) => state.auth);
-  console.log(items);
 
   useEffect(() => {
     if (user) {
+      console.log('hello');
       dispatch(fetchChatsAction());
     }
   }, []);
@@ -22,7 +22,8 @@ const Home = () => {
   if (!user) {
     return <Navigate to='/' />;
   }
-  if (items.length === 0) {
+
+  if (isFetching === true) {
     console.log('loading view');
     return <LoadingView />;
   }
@@ -31,10 +32,10 @@ const Home = () => {
     <Base>
       <div className='row no-gutters fh'>
         <div className='col-3 fh'>
-          <JoinedChat chats={items?.joined} />
+          <JoinedChat chats={items.joined} />
         </div>
         <div className='col-9 fh'>
-          <AvailableChat chats={items?.available} />
+          <AvailableChat chats={items.available} />
         </div>
       </div>
     </Base>

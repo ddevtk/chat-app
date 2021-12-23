@@ -1,12 +1,14 @@
 import { chatActionType } from '../type/chatActionType';
 
 export const chatReducer = (
-  state = { activeChats: [], items: [], isCreating: null },
+  state = { activeChats: [], items: [], isCreating: null, isFetching: false },
   action
 ) => {
   switch (action.type) {
-    case chatActionType.FETCH_CHATS:
-      return { ...state, items: action.payload };
+    case chatActionType.FETCH_CHATS_INIT:
+      return { ...state, isFetching: true };
+    case chatActionType.FETCH_CHATS_SUCCESS:
+      return { ...state, items: action.payload, isFetching: false };
     case chatActionType.JOIN_CHAT_SUCCESS:
       return { ...state, isCreating: false };
     case chatActionType.REFRESH_STATE_WHEN_CREATE_CHAT:
@@ -19,6 +21,7 @@ export const chatReducer = (
         items: [],
         isCreating: null,
         activeChats: [],
+        isFetching: false,
       };
     case chatActionType.SET_ACTIVE_CHAT:
       state.activeChats.push(action.payload);
@@ -43,7 +46,6 @@ export const chatReducer = (
           });
         }
       });
-      console.log(state.activeChats);
       return {
         ...state,
       };

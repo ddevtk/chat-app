@@ -28,6 +28,10 @@ $brand-facebook: #3b5998 !default;
 html,
 body {
   height: 100%;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
 }
 
 #chatApp {

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { formatString } from '../helpers/helpers';
 
 const JoinedChats = ({ chats }) => {
+  console.log(chats);
   const navigate = useNavigate();
   const [value, setValue] = useState('');
   const [joinedChats, setJoinedChats] = useState(chats);
@@ -30,7 +31,7 @@ const JoinedChats = ({ chats }) => {
           />
         </div>
       </div>
-      <ul className='items'>
+      <ul className='items' style={{ overflowY: 'scroll' }}>
         {joinedChats?.map((chat) => (
           <li
             key={chat.id}

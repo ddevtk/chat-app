@@ -2,7 +2,6 @@ import React from 'react';
 import { Avatar } from 'antd';
 
 const ViewTitle = ({ text, children, imageUrl }) => {
-  console.log(imageUrl);
   return (
     <div className='chat-name-container'>
       <div className='d-flex justify-content-center align-items-center'>

@@ -4,6 +4,9 @@ import db from '../../db/firestore';
 
 export const fetchChatsAction = () => async (dispatch, getState) => {
   const { user } = getState().auth;
+  dispatch({
+    type: chatActionType.FETCH_CHATS_INIT,
+  });
   const chats = await api.fetchChats();
   chats.forEach((chat) => {
     chat.joinedUsers = chat.joinedUsers.map((user) => {
@@ -27,7 +30,7 @@ export const fetchChatsAction = () => async (dispatch, getState) => {
   );
 
   dispatch({
-    type: chatActionType.FETCH_CHATS,
+    type: chatActionType.FETCH_CHATS_SUCCESS,
     payload: sortedChats,
   });
 };
