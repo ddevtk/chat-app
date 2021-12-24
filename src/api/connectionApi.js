@@ -4,7 +4,6 @@ import db from '../db/firestore';
 
 export const setUserOnlineStatus = async (uid, isOnline) => {
   const userRef = db.collection('profiles').doc(uid);
-  console.log(isOnline);
   await userRef.update({
     state: isOnline,
     lastChanged: firebase.firestore.FieldValue.serverTimestamp(),

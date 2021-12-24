@@ -27,7 +27,6 @@ export const authReducer = (state = defaultState, action) => {
       };
     case authActionType.AUTH_LOGIN_SUCCESS:
     case authActionType.AUTH_REGISTER_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         // user: action.payload,

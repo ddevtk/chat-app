@@ -13,7 +13,6 @@ const AvailableChats = ({ chats }) => {
   const dispatch = useDispatch();
 
   const handleOk = () => {
-    console.log(chatItem.id);
     dispatch(joinChatAction(chatItem.id)).then(() => {
       dispatch(fetchChatsAction()).then(() => {
         setShowModal(false);
@@ -35,7 +34,10 @@ const AvailableChats = ({ chats }) => {
           New
         </Link>
       </ViewTitle>
-      <div className='container-fluid'>
+      <div
+        className='container-fluid'
+        style={{ overflowY: 'scroll', height: '75vh' }}
+      >
         <div className='row mt-3'>
           {false && (
             <div className='container-fluid'>

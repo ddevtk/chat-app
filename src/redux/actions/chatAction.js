@@ -60,6 +60,7 @@ export const refreshChatCreateState = () => (dispatch) => {
 };
 export const subscribeToChat = (chatId) => (dispatch) =>
   api.subscribeToChat(chatId, async (chat) => {
+    console.log(chat);
     const joinedUsers = await Promise.all(
       chat.joinedUsers.map(async (userRef) => {
         const snapshot = await userRef.get();
@@ -67,6 +68,7 @@ export const subscribeToChat = (chatId) => (dispatch) =>
       })
     );
     chat.joinedUsers = joinedUsers;
+    console.log(chat);
     dispatch({ type: chatActionType.SET_ACTIVE_CHAT, payload: chat });
   });
 

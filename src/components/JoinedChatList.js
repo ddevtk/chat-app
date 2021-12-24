@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { formatString } from '../helpers/helpers';
 
 const JoinedChats = ({ chats }) => {
-  console.log(chats);
   const navigate = useNavigate();
   const [value, setValue] = useState('');
   const [joinedChats, setJoinedChats] = useState(chats);

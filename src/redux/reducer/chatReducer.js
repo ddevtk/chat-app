@@ -24,23 +24,25 @@ export const chatReducer = (
         isFetching: false,
       };
     case chatActionType.SET_ACTIVE_CHAT:
-      state.activeChats.push(action.payload);
+      console.log(state.activeChats);
+      console.log(action.payload);
+      const index = state.activeChats.findIndex((chat) => {
+        return chat.id === action.payload.id;
+      });
+      console.log(index);
+      if (index === -1) {
+        state.activeChats.push(action.payload);
+      } else {
+        state.activeChats[index] = action.payload;
+      }
 
-      const newArr = state.activeChats.reduce((pre, cur) => {
-        if (!pre.some((obj) => obj.id === cur.id)) {
-          pre.push(cur);
-        }
-        return pre;
-      }, []);
-
-      return { ...state, activeChats: newArr };
+      return { ...state, activeChats: state.activeChats };
     case chatActionType.CHATS_UPDATE_USER_STATE:
       const { chatId, user } = action.payload;
       state.activeChats.forEach((chat) => {
         if (chat.id === chatId) {
           chat.joinedUsers.forEach((jUser) => {
             if (jUser.id === user.uid) {
-              console.log(jUser);
               jUser.state = user.state;
             }
           });

@@ -14,7 +14,6 @@ const Home = () => {
 
   useEffect(() => {
     if (user) {
-      console.log('hello');
       dispatch(fetchChatsAction());
     }
   }, []);
@@ -24,7 +23,6 @@ const Home = () => {
   }
 
   if (isFetching === true) {
-    console.log('loading view');
     return <LoadingView />;
   }
 

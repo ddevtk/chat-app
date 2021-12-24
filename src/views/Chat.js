@@ -39,9 +39,9 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    const unSubFromChat = dispatch(subscribeToChat(id));
+    dispatch(subscribeToChat(id));
     return () => {
-      unSubFromChat();
+      dispatch(subscribeToChat(id));
       unSubFromJoinedUsers();
     };
   }, []);
