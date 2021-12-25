@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import { Navigate } from 'react-router-dom';
 import ChatMesList from '../components/ChatMesList';
 import ChatUserList from '../components/ChatUserList';
+import Messenger from '../components/Messenger';
 import LoadingView from '../components/shared/LoadingView';
 import ViewTitle from '../components/shared/ViewTitle';
 import Base from '../layouts/Base';
@@ -38,6 +39,10 @@ const Chat = () => {
     });
   };
 
+  const sendMessage = (message) => {
+    alert(message);
+  };
+
   useEffect(() => {
     dispatch(subscribeToChat(id));
     return () => {
@@ -53,9 +58,6 @@ const Chat = () => {
   if (!user) {
     return <Navigate to='/' />;
   }
-  // if (activeChats.length === 0) {
-  //   return <LoadingView />;
-  // }
 
   return (
     <Base canGoBack>
@@ -66,6 +68,7 @@ const Chat = () => {
         <div className='col-9 fh'>
           <ViewTitle text={joinRoom?.name} imageUrl={joinRoom?.imageUrl} />
           <ChatMesList />
+          <Messenger onSubmit={sendMessage} />
         </div>
       </div>
     </Base>
