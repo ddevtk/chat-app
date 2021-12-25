@@ -48,11 +48,19 @@ export const subscribeToJoinedUser = (userId, onSubscribe) => {
 };
 
 export const sendMessage = (message, chatId) => {
-  console.log(message, chatId);
   return db
     .collection('chats')
     .doc(chatId)
     .collection('messages')
     .doc(message.timestamp)
     .set(message);
+};
+
+export const subscribeToMessage = (chatId, onSubscribe) => {
+  return db
+    .doc(`chats/${chatId}`)
+    .collection('messages')
+    .onSnapshot((snapshot) => {
+      onSubscribe(snapshot.docChanges());
+    });
 };

@@ -60,7 +60,6 @@ export const refreshChatCreateState = () => (dispatch) => {
 };
 export const subscribeToChat = (chatId) => (dispatch) =>
   api.subscribeToChat(chatId, async (chat) => {
-    console.log(chat);
     const joinedUsers = await Promise.all(
       chat.joinedUsers.map(async (userRef) => {
         const snapshot = await userRef.get();
@@ -68,7 +67,6 @@ export const subscribeToChat = (chatId) => (dispatch) =>
       })
     );
     chat.joinedUsers = joinedUsers;
-    console.log(chat);
     dispatch({ type: chatActionType.SET_ACTIVE_CHAT, payload: chat });
   });
 
@@ -96,3 +94,31 @@ export const sendChatMessage =
       console.error(error.message);
     }
   };
+
+export const subscribeToMessages = (chatId) => (dispatch) => {
+  return api.subscribeToMessage(chatId, async (messages) => {
+    const newMessage = await Promise.all(
+      messages.map(async (message) => {
+        if (message.type === 'added') {
+          const userRef = message.doc.data().author;
+          const userSnapshot = await userRef.get();
+          let author = userSnapshot.data();
+          let newMes = {
+            id: message.doc.id,
+            ...message.doc.data(),
+            author,
+          };
+
+          console.log(newMes);
+          return newMes;
+        }
+      })
+    );
+    console.log(newMessage);
+
+    dispatch({
+      type: chatActionType.CHATS_SET_MESSAGES,
+      payload: { chatId, messages: newMessage },
+    });
+  });
+};

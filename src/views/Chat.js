@@ -11,6 +11,7 @@ import Base from '../layouts/Base';
 import {
   sendChatMessage,
   subscribeToChat,
+  subscribeToMessages,
   subscribeToProfile,
 } from '../redux/actions/chatAction';
 
@@ -19,6 +20,7 @@ const Chat = () => {
   const peopleWatchers = useRef({});
   const { user } = useSelector((state) => state.auth);
   const { activeChats } = useSelector((state) => state.chats);
+  const { messages } = useSelector((state) => state.chats);
   const dispatch = useDispatch();
 
   const joinRoom = activeChats?.filter((chat) => chat.id === id)[0];
@@ -46,6 +48,7 @@ const Chat = () => {
 
   useEffect(() => {
     dispatch(subscribeToChat(id));
+    dispatch(subscribeToMessages(id));
     return () => {
       dispatch(subscribeToChat(id));
       unSubFromJoinedUsers();
@@ -68,7 +71,7 @@ const Chat = () => {
         </div>
         <div className='col-9 fh'>
           <ViewTitle text={joinRoom?.name} imageUrl={joinRoom?.imageUrl} />
-          <ChatMesList />
+          <ChatMesList messages={messages[id]} uid={user?.uid} />
           <Messenger onSubmit={sendMessage} />
         </div>
       </div>

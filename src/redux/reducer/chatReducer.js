@@ -1,9 +1,14 @@
 import { chatActionType } from '../type/chatActionType';
 
-export const chatReducer = (
-  state = { activeChats: [], items: [], isCreating: null, isFetching: false },
-  action
-) => {
+const DEFAULT_STATE = {
+  activeChats: [],
+  items: [],
+  isCreating: null,
+  isFetching: false,
+  messages: {},
+};
+
+export const chatReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case chatActionType.FETCH_CHATS_INIT:
       return { ...state, isFetching: true };
@@ -16,34 +21,42 @@ export const chatReducer = (
         ...state,
         isCreating: null,
       };
-    case chatActionType.CLEAN_STATE:
-      return {
-        items: [],
-        isCreating: null,
-        activeChats: [],
-        isFetching: false,
-      };
+
     case chatActionType.SET_ACTIVE_CHAT:
-      console.log(state.activeChats);
-      console.log(action.payload);
       const index = state.activeChats.findIndex((chat) => {
         return chat.id === action.payload.id;
       });
-      console.log(index);
       if (index === -1) {
         state.activeChats.push(action.payload);
       } else {
         state.activeChats[index] = action.payload;
       }
-
       return { ...state, activeChats: state.activeChats };
+
+    case chatActionType.CHATS_SET_MESSAGES:
+      const preMessages = state.messages[action.payload.chatId] || [];
+      console.log(preMessages);
+      console.log(action.payload.messages);
+      state.messages[action.payload.chatId] = [
+        ...preMessages,
+        ...action.payload.messages,
+      ].reduce((pre, cur) => {
+        // remove duplicates object in array
+        if (!pre.some((obj) => obj.id === cur.id)) {
+          pre.push(cur);
+        }
+        return pre;
+      }, []);
+      return {
+        ...state,
+      };
+
     case chatActionType.CHATS_UPDATE_USER_STATE:
-      const { chatId, user } = action.payload;
       state.activeChats.forEach((chat) => {
-        if (chat.id === chatId) {
+        if (chat.id === action.payload.chatId) {
           chat.joinedUsers.forEach((jUser) => {
-            if (jUser.id === user.uid) {
-              jUser.state = user.state;
+            if (jUser.id === action.payload.user.uid) {
+              jUser.state = action.payload.user.state;
             }
           });
         }
@@ -51,6 +64,8 @@ export const chatReducer = (
       return {
         ...state,
       };
+    case chatActionType.CLEAN_STATE:
+      return DEFAULT_STATE;
     default:
       return state;
   }
