@@ -9,6 +9,7 @@ import LoadingView from '../components/shared/LoadingView';
 import ViewTitle from '../components/shared/ViewTitle';
 import Base from '../layouts/Base';
 import {
+  sendChatMessage,
   subscribeToChat,
   subscribeToProfile,
 } from '../redux/actions/chatAction';
@@ -40,7 +41,7 @@ const Chat = () => {
   };
 
   const sendMessage = (message) => {
-    alert(message);
+    dispatch(sendChatMessage(message, id));
   };
 
   useEffect(() => {

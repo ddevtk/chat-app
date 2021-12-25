@@ -1,3 +1,5 @@
+import firebase from 'firebase/app';
+
 export const formatString = (str) => {
   // Xoa dau
   str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
@@ -17,4 +19,8 @@ export const formatString = (str) => {
   str = str.replaceAll(' ', '');
   str = str.toLowerCase();
   return str;
+};
+
+export const createTimestamp = () => {
+  return firebase.firestore.Timestamp.now().toMillis().toString();
 };

@@ -80,3 +80,19 @@ export const subscribeToProfile = (userId, chatId) => (dispatch) => {
     });
   });
 };
+
+export const sendChatMessage =
+  (message, chatId) => async (dispatch, getState) => {
+    try {
+      const { user } = getState().auth;
+      const userRef = db.doc(`profiles/${user.uid}`);
+
+      message.author = userRef;
+
+      await api.sendMessage(message, chatId);
+
+      dispatch({ type: chatActionType.SEND_MESSAGE });
+    } catch (error) {
+      console.error(error.message);
+    }
+  };

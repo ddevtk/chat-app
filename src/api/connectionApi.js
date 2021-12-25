@@ -1,5 +1,4 @@
 import firebase from 'firebase/app';
-import 'firebase/database';
 import db from '../db/firestore';
 
 export const setUserOnlineStatus = async (uid, isOnline) => {
