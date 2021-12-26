@@ -18,6 +18,7 @@ import {
 const Chat = () => {
   const { id } = useParams();
   const peopleWatchers = useRef({});
+  const messageList = useRef({});
   const { user } = useSelector((state) => state.auth);
   const { activeChats } = useSelector((state) => state.chats);
   const { messages } = useSelector((state) => state.chats);
@@ -43,7 +44,9 @@ const Chat = () => {
   };
 
   const sendMessage = (message) => {
-    dispatch(sendChatMessage(message, id));
+    dispatch(sendChatMessage(message, id)).then(() => {
+      messageList.current.scrollIntoView(false);
+    });
   };
 
   useEffect(() => {
@@ -71,7 +74,11 @@ const Chat = () => {
         </div>
         <div className='col-9 fh'>
           <ViewTitle text={joinRoom?.name} imageUrl={joinRoom?.imageUrl} />
-          <ChatMesList messages={messages[id]} uid={user?.uid} />
+          <ChatMesList
+            messages={messages[id]}
+            uid={user?.uid}
+            innerRef={messageList}
+          />
           <Messenger onSubmit={sendMessage} />
         </div>
       </div>

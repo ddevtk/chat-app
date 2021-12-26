@@ -1,13 +1,11 @@
 import React from 'react';
 import { formatTimeAgo } from '../helpers/helpers';
 
-const ChatMesList = ({ messages, uid }) => {
+const ChatMesList = ({ messages, uid, innerRef }) => {
   return (
     <div className='chat-container'>
-      <ul className='chat-box chatContainerScroll'>
+      <ul ref={innerRef} className='chat-box chatContainerScroll'>
         {messages?.map((mes, idx) => {
-          let customClass =
-            mes?.author?.uid === uid ? 'chat-right' : 'chat-left';
           return (
             <li
               className={mes?.author?.uid === uid ? 'chat-right' : 'chat-left'}
