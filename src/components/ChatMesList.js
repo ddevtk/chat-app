@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { formatTimeAgo } from '../helpers/helpers';
 
 const ChatMesList = ({ messages, uid, innerRef }) => {
+  const scrollToBottom = () => {
+    innerRef.current.scrollIntoView(false);
+  };
+
+  useEffect(scrollToBottom, [messages]);
   return (
     <div className='chat-container'>
       <ul ref={innerRef} className='chat-box chatContainerScroll'>
