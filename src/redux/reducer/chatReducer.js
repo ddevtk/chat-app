@@ -35,8 +35,6 @@ export const chatReducer = (state = DEFAULT_STATE, action) => {
 
     case chatActionType.CHATS_SET_MESSAGES:
       const preMessages = state.messages[action.payload.chatId] || [];
-      console.log(preMessages);
-      console.log(action.payload.messages);
       state.messages[action.payload.chatId] = [
         ...preMessages,
         ...action.payload.messages,

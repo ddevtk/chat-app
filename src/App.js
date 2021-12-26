@@ -8,6 +8,8 @@ import LoadingView from './components/shared/LoadingView';
 import { useDispatch } from 'react-redux';
 import { listenAuthChanges } from './redux/actions/authActions';
 import ChatCreate from './views/ChatCreate';
+import { initialSettings } from './redux/actions/settingAction';
+import ContentWrapper from './layouts/ContentWrapper';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,13 +22,14 @@ const App = () => {
   dispatch(listenAuthChanges());
 
   useEffect(() => {
+    dispatch(initialSettings());
     window.addEventListener('online', alertOnline);
     window.addEventListener('offline', alertOnline);
     return () => {
       window.removeEventListener('online', alertOnline);
       window.removeEventListener('offline', alertOnline);
     };
-  }, [dispatch]);
+  }, []);
 
   if (isOnline !== null) {
     if (!isOnline) {
@@ -38,7 +41,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className='content-wrapper'>
+      <ContentWrapper>
         <Routes>
           <Route path='/' element={<Welcome />} />
           <Route path='/home' element={<Home />} />
@@ -46,7 +49,7 @@ const App = () => {
           <Route path='/chat/:id' element={<Chat />} />
           <Route path='/settings' element={<Setting />} />
         </Routes>
-      </div>
+      </ContentWrapper>
     </Router>
   );
 };
