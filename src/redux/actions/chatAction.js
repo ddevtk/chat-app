@@ -102,19 +102,17 @@ export const subscribeToMessages = (chatId) => (dispatch) => {
         if (message.type === 'added') {
           const userRef = message.doc.data().author;
           const userSnapshot = await userRef.get();
-          let author = userSnapshot.data();
+          // let author = userSnapshot.data();
           let newMes = {
             id: message.doc.id,
             ...message.doc.data(),
-            author,
+            author: userSnapshot.data(),
           };
 
-          console.log(newMes);
           return newMes;
         }
       })
     );
-    console.log(newMessage);
 
     dispatch({
       type: chatActionType.CHATS_SET_MESSAGES,

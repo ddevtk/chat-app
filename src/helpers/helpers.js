@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+import moment from 'moment';
 
 export const formatString = (str) => {
   // Xoa dau
@@ -23,4 +24,8 @@ export const formatString = (str) => {
 
 export const createTimestamp = () => {
   return firebase.firestore.Timestamp.now().toMillis().toString();
+};
+
+export const formatTimeAgo = (timestamp) => {
+  return moment(parseInt(timestamp, 10)).fromNow();
 };
