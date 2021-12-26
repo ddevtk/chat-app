@@ -3,11 +3,28 @@ const path = require('path');
 
 const isDev = !app.isPackaged;
 
+function createSplashWindow() {
+  const win = new BrowserWindow({
+    width: 400,
+    height: 200,
+    backgroundColor: '#6e707e',
+    frame: false,
+    transparent: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  });
+  win.loadFile('splash.html');
+  return win;
+}
+
 function createWindow() {
   const win = new BrowserWindow({
     width: 1100,
     height: 600,
     backgroundColor: 'white',
+    show: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -20,6 +37,7 @@ function createWindow() {
 
   // Open the Devtools.
   isDev && win.webContents.openDevTools();
+  return win;
 }
 
 if (isDev) {
@@ -29,9 +47,14 @@ if (isDev) {
 }
 
 app.whenReady().then(() => {
-  createWindow();
-  app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  const splash = createSplashWindow();
+  const mainApp = createWindow();
+
+  mainApp.once('ready-to-show', () => {
+    setTimeout(() => {
+      splash.destroy();
+      mainApp.show();
+    }, 3000);
   });
 });
 
@@ -45,4 +68,9 @@ ipcMain.on('app-quit', () => {
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
+});
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
 });
