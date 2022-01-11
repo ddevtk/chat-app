@@ -1,5 +1,16 @@
-const { ipcRenderer } = require('electron');
+const { ipcRenderer, contextBridge } = require('electron');
 
-window.sayHello = (message) => {
-  ipcRenderer.send('notify', message);
-};
+contextBridge.exposeInMainWorld('electron', {
+  notificationApi: {
+    sendNotification(message) {
+      ipcRenderer.send('notify', message);
+    },
+  },
+  appApi: {
+    quitApp() {
+      ipcRenderer.send('app-quit');
+    },
+  },
+  batteryApi: {},
+  fileApi: {},
+});

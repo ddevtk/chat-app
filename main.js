@@ -1,43 +1,18 @@
 const { app, BrowserWindow, ipcMain, Notification } = require('electron');
 const path = require('path');
-
 const isDev = !app.isPackaged;
-
-function createSplashWindow() {
-  const win = new BrowserWindow({
-    width: 400,
-    height: 200,
-    backgroundColor: '#6e707e',
-    frame: false,
-    transparent: true,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  });
-  win.loadFile('splash.html');
-  return win;
-}
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1100,
-    height: 600,
-    backgroundColor: 'white',
-    show: false,
+    width: 1200,
+    height: 800,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
       preload: path.join(__dirname, 'preload.js'),
     },
   });
 
-  // Load the index.html of the app
   win.loadFile('index.html');
-
-  // Open the Devtools.
   isDev && win.webContents.openDevTools();
-  return win;
 }
 
 if (isDev) {
@@ -47,19 +22,11 @@ if (isDev) {
 }
 
 app.whenReady().then(() => {
-  const splash = createSplashWindow();
-  const mainApp = createWindow();
-
-  mainApp.once('ready-to-show', () => {
-    setTimeout(() => {
-      splash.destroy();
-      mainApp.show();
-    }, 3000);
-  });
+  createWindow();
 });
 
-ipcMain.on('notify', (_, message) => {
-  new Notification({ title: 'Notification', body: message }).show();
+ipcMain.on('notifi', (_, mess) => {
+  new Notification({ title: 'Notification', body: mess }).show();
 });
 
 ipcMain.on('app-quit', () => {
@@ -67,8 +34,11 @@ ipcMain.on('app-quit', () => {
 });
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
 });
+
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
