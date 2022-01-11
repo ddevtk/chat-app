@@ -241,16 +241,18 @@ body {
 
 .chat-container {
   position: relative;
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
   overflow-y: auto;
-  height: 70%;
+  height: 78%;
 }
 
 .chat-input {
   position: absolute;
+  display: flex;
+  align-items: center;
   width: 100%;
   bottom: 0;
-  padding: 20px;
+  padding: 0 20px 10px 20px;
 }
 
 .chat-container li.chat-left,
@@ -259,9 +261,12 @@ body {
   flex: 1;
   flex-direction: row;
   margin-bottom: 40px;
+  &:last-child {
+    margin-bottom: 0px;
+  }
 }
 
-.chat-container li img {
+.chat-container li .avatar-mes-list {
   width: 48px;
   height: 48px;
   -webkit-border-radius: 30px;
@@ -517,4 +522,34 @@ ul {
 }
 .ant-modal-footer {
   border: none;
+}
+.content-edit {
+  &:empty::before {
+    content: attr(placeholder);
+  }
+  width: 100%;
+  max-height: 5rem;
+  background-color: white;
+  overflow-y: scroll;
+  padding: 0.5rem !important;
+  border: none !important;
+  border-radius: 1rem;
+  &:focus-visible {
+    outline: none;
+  }
+}
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+.react-thumbnail-generator > img {
+  border-radius: 0.5rem;
+  width: 50px !important;
+  height: 50px !important;
 }

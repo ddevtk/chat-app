@@ -40,7 +40,7 @@ export const chatReducer = (state = DEFAULT_STATE, action) => {
         ...action.payload.messages,
       ].reduce((pre, cur) => {
         // remove duplicates object in array
-        if (!pre.some((obj) => obj.id === cur.id)) {
+        if (!pre.some((obj) => obj?.id === cur?.id)) {
           pre.push(cur);
         }
         return pre;
