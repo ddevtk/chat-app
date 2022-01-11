@@ -22,7 +22,7 @@ function createSplashWindow() {
 function createWindow() {
   const win = new BrowserWindow({
     width: 1100,
-    height: 600,
+    height: 800,
     backgroundColor: 'white',
     show: false,
     webPreferences: {
@@ -36,7 +36,7 @@ function createWindow() {
   win.loadFile('index.html');
 
   // Open the Devtools.
-  isDev && win.webContents.openDevTools();
+  // isDev && win.webContents.openDevTools();
   return win;
 }
 

@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import VideoThumbnail from 'react-video-thumbnail';
 import { createTimestamp } from '../helpers/helpers';
-import {
-  FileImageOutlined,
-  CloseOutlined,
-  SendOutlined,
-} from '@ant-design/icons';
+import { FileImageOutlined, CloseOutlined, SendOutlined } from '@ant-design/icons';
 import { Input, Badge, Image, Tooltip } from 'antd';
 import { RightCircleOutlined } from '@ant-design/icons';
 import { useRef } from 'react';
@@ -87,6 +83,7 @@ const Messenger = ({ onSubmit }) => {
   };
 
   const uploadImageOrVideo = () => {
+    imageRef.current.value = '';
     imageRef.current.click();
   };
 
@@ -154,11 +151,7 @@ const Messenger = ({ onSubmit }) => {
           )}
           {previewVideo && (
             <>
-              <VideoThumbnail
-                videoUrl={previewVideo}
-                width={10}
-                className='mr-2'
-              />
+              <VideoThumbnail videoUrl={previewVideo} width={10} className='mr-2' />
               <RightCircleOutlined
                 style={{
                   color: 'white',
